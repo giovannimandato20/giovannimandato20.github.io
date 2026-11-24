@@ -30,7 +30,9 @@ button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
 h1,h2,h3{font-weight:700;letter-spacing:-.035em;line-height:.95}
 .dark{background:var(--grid-d),var(--night);color:var(--paper)}
 /* testo a matrice di punti: il font del sito bucato da una griglia di punti */
-.dm{-webkit-mask:radial-gradient(circle closest-side,#000 74%,transparent 80%) 0 0/.075em .075em;mask:radial-gradient(circle closest-side,#000 74%,transparent 80%) 0 0/.075em .075em}
+@property --c{syntax:'<length>';inherits:false;initial-value:0px}
+.dm{--c:.075em;-webkit-mask:radial-gradient(circle closest-side,#000 74%,transparent 80%) var(--px,0px) var(--py,0px)/var(--c) var(--c);mask:radial-gradient(circle closest-side,#000 74%,transparent 80%) var(--px,0px) var(--py,0px)/var(--c) var(--c);transition:--c .6s var(--ease)}
+.dm.hot{--c:.105em}
 .lbl{font-family:var(--mono);font-size:12.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase}
 .btn{display:inline-flex;align-items:center;gap:.5em;padding:.85em 1.4em;border-radius:999px;background:var(--accent);color:#fff;font-weight:600;text-decoration:none;transition:transform .25s var(--ease),background .25s}
 .btn:hover{transform:translateY(-2px)} .btn:active{transform:scale(.97)}
@@ -47,24 +49,21 @@ h1,h2,h3{font-weight:700;letter-spacing:-.035em;line-height:.95}
 @media (max-width:760px){.nav .lk{display:none}}
 
 /* hero: Creaturelle che si apre */
-.hero{min-height:100svh;position:relative;overflow:hidden;display:grid;grid-template-columns:1fr auto 1fr;align-items:end;gap:var(--m);padding:96px var(--m) 40px}
-.hero [data-d]{transform:translate3d(calc(var(--mx,0)*var(--d)*14px),calc(var(--my,0)*var(--d)*10px + var(--sy,0)*var(--d)*-60px),0)}
+.hero{height:260svh;position:relative}
+.pin{position:sticky;top:0;height:100svh;overflow:hidden;display:grid;grid-template-columns:1fr auto 1fr;align-items:end;gap:var(--m);padding:96px var(--m) 40px}
+.hero [data-d]{transform:translate3d(calc(var(--mx,0)*var(--d)*14px),calc(var(--my,0)*var(--d)*10px),0)}
+.prog{position:absolute;left:var(--m);right:var(--m);bottom:16px;height:2px;background:rgba(0,0,0,.12);border-radius:2px}
+.prog i{display:block;height:100%;width:100%;background:var(--accent);transform-origin:left;transform:scaleX(var(--p,0))}
 .bgword{position:absolute;inset:0;display:grid;place-items:center;font-size:clamp(58px,15.2vw,260px);font-weight:800;letter-spacing:-.04em;line-height:1;color:#BDBDB8;text-transform:uppercase;white-space:nowrap;pointer-events:none;padding-bottom:12svh}
 .bgword span{--d:-.5;display:block}
-.spec{position:absolute;pointer-events:none;display:flex;align-items:center;gap:8px;color:#55554F}
-.spec::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--ink)}
-.s1{--d:1.6;left:6%;top:20%} .s2{--d:-1.1;right:8%;top:17%} .s3{--d:2.2;right:5%;bottom:36%} .s4{--d:-1.8;left:30%;top:13%} .s5{--d:1;left:4%;bottom:40%}
-.s2::before{background:var(--accent);width:9px;height:9px}
-.redot{position:absolute;--d:-2;width:clamp(28px,3vw,48px);aspect-ratio:1;border-radius:50%;background:var(--accent);right:30%;top:30%;pointer-events:none}
-.crea-hero{grid-column:2;grid-row:1;align-self:center;position:relative;z-index:2;width:min(50vw,96svh,820px);margin-block:-6svh -10svh;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.crea-hero img{width:100%;height:auto;transition:transform .9s var(--ease);-webkit-mask:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent),linear-gradient(0deg,transparent,#000 16%);-webkit-mask-composite:source-in;mask:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent),linear-gradient(0deg,transparent,#000 16%);mask-composite:intersect}
-.crea-hero:hover img{transform:scale(1.02)}
+.crea-hero{grid-column:2;grid-row:1;align-self:center;position:relative;z-index:2;width:min(42vw,86svh,720px);margin-block:-6svh -8svh;touch-action:pan-y}
+.crea-hero canvas{width:100%;height:auto;-webkit-mask:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent),linear-gradient(0deg,transparent,#000 16%);-webkit-mask-composite:source-in;mask:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent),linear-gradient(0deg,transparent,#000 16%);mask-composite:intersect}
 .part{position:absolute;left:78%;white-space:nowrap;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;background:var(--ink);color:#fff;padding:.45em .8em;border-radius:999px;opacity:0;transform:translateX(-8px);transition:opacity .4s var(--ease),transform .4s var(--ease)}
 .part.p1{top:16%}.part.p2{top:38.5%}.part.p3{top:46.5%}.part.p4{top:57%}.part.p5{top:72%}
 .crea-hero.open .part{opacity:1;transform:none}
 .crea-hero.open .p2{transition-delay:.06s}.crea-hero.open .p3{transition-delay:.12s}.crea-hero.open .p4{transition-delay:.18s}.crea-hero.open .p5{transition-delay:.24s}
 .hero-txt{grid-column:1;grid-row:1;position:relative;z-index:3;align-self:end}
-.hero h1{font-size:clamp(44px,5.6vw,96px);font-weight:800;letter-spacing:-.05em;line-height:.9;max-width:7ch}
+.hero h1{font-size:clamp(44px,5.6vw,96px);font-weight:800;letter-spacing:-.05em;line-height:.9}
 .hero .lead{font-size:var(--t-body);line-height:1.4;max-width:30ch;margin-top:20px}
 .hero .acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
 .hero-cap{grid-column:3;grid-row:1;justify-self:end;align-self:end;position:relative;z-index:3;max-width:28ch;text-align:right}
@@ -73,18 +72,15 @@ h1,h2,h3{font-weight:700;letter-spacing:-.035em;line-height:.95}
 .hero-cap em{display:inline-flex;align-items:center;gap:8px;margin-top:14px;font-style:normal;font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;background:var(--ink);color:#fff;padding:.6em 1em;border-radius:999px}
 .hero-cap em::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);animation:blink 1.4s steps(2) infinite}
 @keyframes blink{50%{opacity:0}}
-.ticker{background:var(--ink);color:#fff;overflow:hidden;padding:20px 0;font-size:clamp(30px,4vw,64px);font-weight:800;letter-spacing:-.02em;text-transform:uppercase}
-.ticker div{display:flex;gap:1.2em;width:max-content;animation:tick 40s linear infinite}
-.ticker span::after{content:"";display:inline-block;width:.3em;height:.3em;border-radius:50%;background:var(--accent);margin-left:1.2em;vertical-align:.2em}
-@keyframes tick{to{transform:translateX(-50%)}}
 @media (max-width:900px){
-  .hero{grid-template-columns:1fr;align-items:start;padding-top:72px;gap:20px}
-  .crea-hero{grid-column:1;grid-row:1;width:min(78vw,52svh);justify-self:center}
+  .pin{grid-template-columns:1fr;grid-template-rows:1fr auto auto;align-items:start;padding:64px var(--m) 36px;gap:14px}
+  .crea-hero{grid-column:1;grid-row:1;width:auto;height:100%;max-height:52svh;aspect-ratio:700/980;justify-self:center;margin:0}
+  .crea-hero canvas{height:100%;width:auto}
   .hero-txt,.hero-cap{grid-column:1;grid-row:auto}
-  .crea-hero{margin-block:0 -4svh}
   .hero-txt{grid-row:2}
   .hero-cap{grid-row:3;justify-self:start;text-align:left}
-  .spec{display:none}
+  .hero-cap b,.hero-cap span{display:none} .hero-cap em{margin-top:0}
+  .hero .lead{margin-top:12px} .hero .acts{margin-top:16px}
   .bgword{place-items:start center;padding:28svh 0 0}
   .part{left:66%;font-size:11px}
 }
@@ -106,23 +102,19 @@ h1,h2,h3{font-weight:700;letter-spacing:-.035em;line-height:.95}
   .lampctl{padding-inline:var(--m)} .hint{display:none}
   .chip.on{margin-left:0}
 }
-@media (prefers-reduced-motion:reduce){.ticker div{animation:none}.hero [data-d]{transform:none}}
+@media (prefers-reduced-motion:reduce){.hero [data-d]{transform:none}}
 
 /* process */
 .process{padding:var(--gap) var(--m)}
 .process .st{font-size:var(--t-st);line-height:1.25;max-width:30ch;letter-spacing:-.015em}
 .steps{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--m);margin-top:clamp(48px,6vw,96px);list-style:none}
-.steps li:nth-child(1){grid-column:1/5}
-.steps li:nth-child(2){grid-column:5/8;margin-top:18vw}
-.steps li:nth-child(3){grid-column:8/11;margin-top:6vw}
-.steps li:nth-child(4){grid-column:11/13;margin-top:24vw}
+.steps li{grid-column:span 3}
 .steps img{width:100%;aspect-ratio:4/5;object-fit:cover;background:var(--ground-2)}
 .steps b{display:block;font-size:var(--t-2);letter-spacing:-.03em;line-height:1;margin-top:16px}
 .steps span{display:block;margin-top:6px;max-width:30ch}
 @media (max-width:760px){
   .steps{grid-template-columns:1fr 1fr}
-  .steps li:nth-child(n){grid-column:auto;margin-top:0}
-  .steps li:nth-child(even){margin-top:56px}
+  .steps li{grid-column:auto}
 }
 
 /* chapter heads */
@@ -146,15 +138,12 @@ h1,h2,h3{font-weight:700;letter-spacing:-.035em;line-height:.95}
 .lamps{padding:var(--gap) var(--m) 0}
 .lamps .row{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--m);margin-top:clamp(40px,5vw,72px)}
 .lamps figure img{width:100%;aspect-ratio:3/4;object-fit:cover;transition:transform .8s var(--ease)}
-.lamps figure{overflow:hidden}
-.lamps figure:hover img{transform:scale(1.04)}
 .lamps figcaption{margin-top:14px} .lamps figcaption b{font-size:var(--t-2);letter-spacing:-.03em;display:block;line-height:1.05}
-.lamps .row figure:nth-child(2){margin-top:12vw}
 .lamps .head{display:grid;grid-template-columns:1fr 1fr;gap:var(--m);align-items:end}
 @media (max-width:900px){
   .crea,.lamps .head{grid-template-columns:1fr}
   .crea .vid{position:static;max-width:420px}
-  .lamps .row{grid-template-columns:1fr 1fr} .lamps .row figure:nth-child(2){margin-top:0}
+  .lamps .row{grid-template-columns:1fr 1fr}
   .lamps .row figure:nth-child(3){grid-column:1/-1} .lamps .row figure:nth-child(3) img{aspect-ratio:4/3}
 }
 
@@ -203,7 +192,6 @@ h1,h2,h3{font-weight:700;letter-spacing:-.035em;line-height:.95}
 .svc{list-style:none;margin-top:clamp(48px,6vw,88px)}
 .svc li{padding:22px 0;display:grid;grid-template-columns:1fr 1fr;gap:var(--m)}
 .svc b{font-size:var(--t-2);letter-spacing:-.03em;line-height:1.05}
-.svc li:nth-child(odd){background:var(--ground-2);padding-inline:20px;margin-inline:-20px}
 .tools{margin-top:40px;display:flex;flex-wrap:wrap;gap:8px}
 .tools span{background:var(--ground-2);padding:.45em 1em;border-radius:999px;font-weight:600;font-size:15px}
 @media (max-width:900px){.about{grid-template-columns:1fr}.about img{position:static;max-width:420px}.svc li{grid-template-columns:1fr;gap:6px}}
@@ -230,12 +218,23 @@ dialog[open]{animation:rise .45s var(--ease)}
 @keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
 
 
-/* dettagli tecnici */
-.steps img,.crea video,.crea .pics img,.lamps figure,.screen,.about img{border-radius:22px}
+/* riquadri: foto con cornice sottile staccata, che diventa rossa al passaggio */
+.steps img,.crea video,.crea .pics img,.lamps figure img,.about img,.rbody img{border-radius:18px;outline:1px solid rgba(0,0,0,.2);outline-offset:6px;transition:outline-color .3s,outline-offset .3s var(--ease)}
+.dark :is(.crea video,.crea .pics img,.lamps figure img),.rbody img{outline-color:rgba(255,255,255,.22)}
+:is(.steps img,.crea video,.crea .pics img,.lamps figure img,.about img):hover{outline-color:var(--accent);outline-offset:9px}
+.screen,.stage{border:1px solid rgba(0,0,0,.16);border-radius:22px;background:var(--grid),var(--ground-2)}
+.stage{border-color:rgba(255,255,255,.16);background:var(--grid-d),var(--night-2);overflow:hidden}
+.lampctl{padding:16px} .hint{padding:16px}
 .screen video{border-radius:12px}
+/* testa di ogni progetto */
+.pbar{grid-column:1/-1;display:flex;gap:var(--m);align-items:center;border-top:1px solid currentColor;padding-top:12px;margin-bottom:clamp(28px,4vw,56px)}
+.pbar b{font-weight:500;color:var(--accent)} .apps .pbar b{color:var(--ink)}
+.pbar span:last-child{margin-left:auto;opacity:.65}
+.svc li{border-top:1px solid rgba(0,0,0,.15)}
+.svc li:nth-child(odd){background:none}
+.tools span{background:none;border:1px solid rgba(0,0,0,.22)}
 .chap h2{text-transform:uppercase;letter-spacing:-.02em}
 .chap h2::after{content:"";display:inline-block;width:.16em;height:.16em;border-radius:50%;background:var(--accent);margin-left:.1em;-webkit-mask:none}
-.svc li{border-radius:20px;padding-inline:20px;margin-inline:-20px}
 .tools span,.chip,.screen .cap{font-family:var(--mono);font-size:12.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase}
 .facts dt{font-family:var(--mono);font-size:12.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding-top:.3em}
 .btn{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.06em;text-transform:uppercase}
@@ -263,12 +262,12 @@ dialog[open]{animation:rise .45s var(--ease)}
 
 <main id="top">
 <header class="hero" id="hero">
+ <div class="pin">
   <p class="bgword dm" aria-hidden="true"><span data-d>Creaturelle</span></p>
-  <span class="spec lbl s1" data-d>PETG traslucido</span><span class="spec lbl s2" data-d>Progetto di punta</span><span class="spec lbl s3" data-d>Sei parti, zero colla</span><span class="spec lbl s4" data-d>Idroponica, senza terra</span><span class="spec lbl s5" data-d>Stampa 3D</span><i class="redot" data-d></i>
-  <button class="crea-hero" id="ch" aria-pressed="false" aria-label="Creaturelle: apri e chiudi la vista esplosa">
-    <img id="chimg" src="img/esploso/00.webp" alt="Creaturelle, vaso idroponico modulare stampato in 3D" width="700" height="980">
+  <div class="crea-hero" id="ch">
+    <canvas id="chcv" width="700" height="980" role="img" aria-label="Creaturelle, vaso idroponico modulare stampato in 3D. Scorrendo si apre nelle sue parti."></canvas>
     <span class="part p1">01 Pianta</span><span class="part p2">02 Cestello</span><span class="part p3">03 Testa</span><span class="part p4">04 Coperchio</span><span class="part p5">05 Corpo</span>
-  </button>
+  </div>
   <div class="hero-txt">
     <h1>Giovanni Mandato</h1>
     <p class="lead">Product, 3D e web designer. Disegno oggetti, li stampo in 3D e costruisco i siti che li raccontano.</p>
@@ -280,10 +279,11 @@ dialog[open]{animation:rise .45s var(--ease)}
   <div class="hero-cap">
     <b>Creaturelle</b>
     <span>Vaso idroponico modulare, sei pezzi stampati in PETG che si montano a mano.</span>
-    <em id="chhint">Passaci sopra: si apre.</em>
+    <em id="chhint">Scorri: si apre</em>
   </div>
+  <div class="prog" aria-hidden="true"><i></i></div>
+ </div>
 </header>
-<div class="ticker" aria-hidden="true"><div class="dm"><span>Creaturelle</span><span>Amelia</span><span>Pulcinella</span><span>Amelia Science</span><span>Alleria</span><span>ÓLIVE</span><span>Berenice</span><span>CORE</span><span>Helys</span><span>BeReal</span><span>Creaturelle</span><span>Amelia</span><span>Pulcinella</span><span>Amelia Science</span><span>Alleria</span><span>ÓLIVE</span><span>Berenice</span><span>CORE</span><span>Helys</span><span>BeReal</span></div></div>
 
 <section class="process" aria-label="Come lavoro">
   <p class="st rv">Mi piace seguire un progetto dall'inizio alla fine: dal modello sullo schermo al pezzo che puoi tenere in mano, fino al sito che lo presenta.</p>
@@ -297,11 +297,12 @@ dialog[open]{animation:rise .45s var(--ease)}
 
 <section id="prodotto" class="prod dark" aria-labelledby="h-prod">
   <div class="chap">
-    <h2 class="dm" id="h-prod" class="rv">Prodotto & 3D</h2>
+    <h2 class="rv" id="h-prod">Prodotto & 3D</h2>
     <p class="rv">Oggetti progettati, stampati in 3D e provati davvero. Poi render e animazioni in Blender per presentarli.</p>
   </div>
 
   <article class="crea">
+    <p class="pbar lbl"><b>01</b><span>Creaturelle</span><span>Prodotto / stampa 3D</span></p>
     <div class="vid rv">
       <video src="vid/creaturelle.mp4" poster="vid/creaturelle.jpg" muted loop playsinline autoplay preload="metadata" aria-label="Spot di Creaturelle realizzato in Blender"></video>
     </div>
@@ -326,6 +327,7 @@ dialog[open]{animation:rise .45s var(--ease)}
   </article>
 
   <article class="lamps">
+    <p class="pbar lbl"><b>02</b><span>Alleria Lamps</span><span>Lampade / modello 3D</span></p>
     <div class="head">
       <h3 class="rv">Alleria Lamps</h3>
       <div>
@@ -357,34 +359,35 @@ dialog[open]{animation:rise .45s var(--ease)}
 
 <section id="siti" class="webs" aria-labelledby="h-siti">
   <div class="chap">
-    <h2 class="dm" id="h-siti" class="rv">Siti web</h2>
+    <h2 class="rv" id="h-siti">Siti web</h2>
     <p class="rv">Disegnati e scritti a mano, pensati prima per il telefono. Uno è online, tre sono concept per locali di Aversa.</p>
   </div>
   <div class="sites">
+    <p class="pbar lbl"><b>03</b><span>Siti web</span><span>Uno online, tre concept</span></p>
     <ol>
       <li class="site on" data-v="alleria">
-        <button aria-expanded="true">Alleria</button>
+        <button aria-expanded="true"><span>Alleria</span></button>
         <div class="more"><div>
           <p>Il sito dello studio: le tre lampade sono modelli 3D in tempo reale che scorri, fermi e accendi. Un solo file, niente richieste a servizi esterni.</p>
           <div class="acts"><a class="btn" href="https://alleria.studio" target="_blank" rel="noopener">Apri alleria.studio</a><button class="btn ghost" data-open="alleria">Leggi il progetto</button></div>
         </div></div>
       </li>
       <li class="site" data-v="olive">
-        <button aria-expanded="false">ÓLIVE</button>
+        <button aria-expanded="false"><span>ÓLIVE</span></button>
         <div class="more"><div>
           <p>Oliveria e aperitivo. Solo foto vere del locale e i suoi cartelli dipinti a mano; un'oliva 3D in WebGL cade lungo la pagina mentre scorri.</p>
           <div class="acts"><button class="btn" data-open="olive">Leggi il progetto</button><a class="btn ghost" href="https://olivedemosito.netlify.app/" target="_blank" rel="noopener">Apri la demo</a></div>
         </div></div>
       </li>
       <li class="site" data-v="berenice">
-        <button aria-expanded="false">Berenice</button>
+        <button aria-expanded="false"><span>Berenice</span></button>
         <div class="more"><div>
           <p>Cocktail bar e pizzeria dal 1994, con un menu dove ogni piatto ha il nome di un film. Il sito diventa un programma di cinema su una pagina sola.</p>
           <div class="acts"><button class="btn" data-open="berenice">Leggi il progetto</button><a class="btn ghost" href="https://www.behance.net/gallery/258907083" target="_blank" rel="noopener">Su Behance</a></div>
         </div></div>
       </li>
       <li class="site" data-v="core">
-        <button aria-expanded="false">CORE</button>
+        <button aria-expanded="false"><span>CORE</span></button>
         <div class="more"><div>
           <p>Osteria romana che viveva solo su Instagram. Ora il menu è testo vero, una scheda per portata, e si prenota su WhatsApp.</p>
           <div class="acts"><button class="btn" data-open="core">Leggi il progetto</button><a class="btn ghost" href="https://www.behance.net/gallery/258907053" target="_blank" rel="noopener">Su Behance</a></div>
@@ -400,10 +403,11 @@ dialog[open]{animation:rise .45s var(--ease)}
 
 <section id="app" class="apps" aria-labelledby="h-app">
   <div class="chap">
-    <h2 class="dm" id="h-app" class="rv">App</h2>
+    <h2 class="rv" id="h-app">App</h2>
     <p class="rv">Dalle interviste al prototipo provato con persone vere: ricerca, architettura, schermate e test.</p>
   </div>
   <article class="helys">
+    <p class="pbar lbl"><b>04</b><span>Helys</span><span>App iOS e watchOS</span></p>
     <div>
       <h3 class="rv">Helys</h3>
       <p class="tag rv">Un'app per prendere abbastanza sole senza rischi: legge l'indice UV e conta la vitamina D che produci.</p>
@@ -423,6 +427,7 @@ dialog[open]{animation:rise .45s var(--ease)}
     <div class="phone rv"><img id="sunimg" src="img/helys-p17.jpg" alt="Schermata di Helys: la sfera piena al 17% di vitamina D"></div>
   </article>
   <article class="bereal">
+    <p class="pbar lbl"><b>05</b><span>BeReal</span><span>Redesign UX</span></p>
     <div class="head">
       <h3 class="rv">BeReal, ridisegnata</h3>
       <div>
@@ -444,7 +449,7 @@ dialog[open]{animation:rise .45s var(--ease)}
 <section id="chi" class="about" aria-labelledby="h-chi">
   <img class="rv" src="img/giovanni.jpg" alt="Giovanni Mandato" loading="lazy">
   <div>
-    <h2 class="dm" id="h-chi" class="rv">Chi sono</h2>
+    <h2 class="rv" id="h-chi">Chi sono</h2>
     <p class="bio rv">Sono Giovanni, lavoro ad Aversa, vicino Napoli. Progetto oggetti e li porto fino al pezzo che puoi tenere in mano.</p>
     <p class="rv">A luglio 2026 mi sono laureato in Design per la Comunità alla Federico II. Per la tesi ho progettato una posata con anima in PLA e rivestimento in resina epossidica termoformata, provata con prototipi fisici. Da gennaio 2026 porto avanti Alleria Creative Studio: lampade stampate in 3D, siti, mostre ed eventi.</p>
     <div class="tools rv"><span>Blender</span><span>Modellazione parametrica</span><span>Stampa 3D</span><span>Figma</span><span>Photoshop</span><span>Illustrator</span><span>InDesign</span><span>Claude Code</span></div>
@@ -545,29 +550,64 @@ document.querySelectorAll('.rv').forEach(el => io.observe(el));
 const vo = new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? e.target.play().catch(()=>{}) : e.target.pause()));
 document.querySelectorAll('video').forEach(v => vo.observe(v));
 
-// ---- hero: la Creaturella si apre al passaggio, parallasse col mouse e lo scroll
+// ---- hero: la Creaturella si apre scorrendo e traballa sotto il mouse
 (function(){
-  const hero = document.getElementById('hero'), btn = document.getElementById('ch'), img = document.getElementById('chimg');
-  const N = 24, F = [];
+  const hero = document.getElementById('hero'), box = document.getElementById('ch'), cv = document.getElementById('chcv'), cx = cv.getContext('2d');
+  const N = 24, F = [], W = 700, H = 980, S = 49, sh = H / S;
   for (let i = 0; i < N; i++){ F[i] = new Image(); F[i].src = `img/esploso/${String(i).padStart(2,'0')}.webp`; }
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const touch = matchMedia('(hover: none)').matches;
-  if (touch) document.getElementById('chhint').textContent = 'Toccala: si apre.';
-  let goal = 0, t = 0, shown = 0, mx = 0, my = 0, tx = 0, ty = 0;
-  const set = o => { goal = o ? 1 : 0; btn.classList.toggle('open', o); btn.setAttribute('aria-pressed', o); };
-  if (!touch){ btn.addEventListener('pointerenter', () => set(true)); btn.addEventListener('pointerleave', () => set(false)); }
-  btn.addEventListener('click', () => { if (touch || !goal) set(!goal); });
-  hero.addEventListener('pointermove', e => { const r = hero.getBoundingClientRect(); tx = (e.clientX - r.left) / r.width * 2 - 1; ty = (e.clientY - r.top) / r.height * 2 - 1; });
+  const x = new Float32Array(S), v = new Float32Array(S);
+  let t = 0, drawn = -1, lx = null, mx = 0, my = 0, tx = 0, ty = 0;
+  // spinta: le fette vicine al puntatore prendono la velocità del mouse, poi molle e gravità le riportano giù
+  const push = (cy, dx) => { for (let i = 0; i < S; i++){ const d = (i - cy) / 6; v[i] += Math.max(-40, Math.min(40, dx)) * .3 * Math.exp(-d * d); } };
+  box.addEventListener('pointermove', e => {
+    const r = cv.getBoundingClientRect();
+    if (lx !== null && !still) push((e.clientY - r.top) / r.height * S, (e.clientX - lx) / r.width * W);
+    lx = e.clientX;
+  });
+  box.addEventListener('pointerleave', () => lx = null);
+  box.addEventListener('pointerdown', e => { const r = cv.getBoundingClientRect(); if (!still) push((e.clientY - r.top) / r.height * S, (Math.random() < .5 ? -1 : 1) * 30); });
+  hero.addEventListener('pointermove', e => { tx = e.clientX / innerWidth * 2 - 1; ty = e.clientY / innerHeight * 2 - 1; });
   (function loop(){
     requestAnimationFrame(loop);
-    t += (goal - t) * (still ? 1 : .09);
-    const f = Math.round(t * (N - 1));
-    if (f !== shown && F[f].complete){ img.src = F[f].src; shown = f; }
+    const r = hero.getBoundingClientRect();
+    if (r.bottom < 0) return;
+    const p = Math.min(1, Math.max(0, -r.top / (r.height - innerHeight)));
+    t += (p - t) * (still ? 1 : .14);
+    hero.style.setProperty('--p', p.toFixed(3));
+    box.classList.toggle('open', t > .72);
+    let e = 0;
+    for (let i = 0; i < S; i++){
+      const k = .03 + .09 * i / S;                       // in basso la base tiene, in alto oscilla di più
+      const n = (i ? x[i-1] : x[i]) + (i < S - 1 ? x[i+1] : x[i]) - 2 * x[i];
+      v[i] = (v[i] - x[i] * k + n * .15) * .9; x[i] += v[i]; e += Math.abs(x[i]);
+    }
+    const fi = Math.round(t * (N - 1)), f = F[fi];
+    if (f.complete && (fi !== drawn || e > .3)){
+      cx.clearRect(0, 0, W, H);
+      for (let i = 0; i < S; i++) cx.drawImage(f, 0, i * sh, W, sh + 1, x[i], i * sh, W, sh + 1);
+      drawn = e > .3 ? -1 : fi;
+    }
     if (still) return;
     mx += (tx - mx) * .06; my += (ty - my) * .06;
-    const sy = Math.min(1, scrollY / innerHeight);
-    hero.style.setProperty('--mx', mx.toFixed(3)); hero.style.setProperty('--my', my.toFixed(3)); hero.style.setProperty('--sy', sy.toFixed(3));
+    hero.style.setProperty('--mx', mx.toFixed(3)); hero.style.setProperty('--my', my.toFixed(3));
   })();
+})();
+
+// ---- titoli a puntini: i punti si allargano e scorrono seguendo il mouse
+(function(){
+  const L = 'h1,h2,h3,.site>button>span,.hero-cap b,.steps b,.lamps figcaption b,.svc b,.contact .big';
+  document.querySelectorAll(L).forEach(el => el.classList.add('dm'));
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let hot = null;
+  addEventListener('pointermove', e => {
+    const el = e.target.closest && e.target.closest('.dm');
+    if (el !== hot){ hot && hot.classList.remove('hot'); hot = el; hot && hot.classList.add('hot'); }
+    if (!hot) return;
+    const r = hot.getBoundingClientRect();
+    hot.style.setProperty('--px', ((e.clientX - r.left) * -.06).toFixed(1) + 'px');
+    hot.style.setProperty('--py', ((e.clientY - r.top) * -.06).toFixed(1) + 'px');
+  }, {passive: true});
 })();
 
 // ---- la lampada in 3D
