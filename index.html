@@ -33,6 +33,9 @@ h1,h2,h3{font-weight:700;letter-spacing:-.035em;line-height:.95}
 @property --c{syntax:'<length>';inherits:false;initial-value:0px}
 .dm{--c:.075em;-webkit-mask:radial-gradient(circle closest-side,#000 74%,transparent 80%) var(--px,0px) var(--py,0px)/var(--c) var(--c);mask:radial-gradient(circle closest-side,#000 74%,transparent 80%) var(--px,0px) var(--py,0px)/var(--c) var(--c);transition:--c .6s var(--ease)}
 .dm.hot{--c:.105em}
+.dm:not(.bgword){position:relative}
+.dm .w{white-space:nowrap}
+.dm .ch{display:inline-block;transition:transform .6s cubic-bezier(.3,1.7,.5,1)}
 .lbl{font-family:var(--mono);font-size:12.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase}
 .btn{display:inline-flex;align-items:center;gap:.5em;padding:.85em 1.4em;border-radius:999px;background:var(--accent);color:#fff;font-weight:600;text-decoration:none;transition:transform .25s var(--ease),background .25s}
 .btn:hover{transform:translateY(-2px)} .btn:active{transform:scale(.97)}
@@ -219,13 +222,13 @@ dialog[open]{animation:rise .45s var(--ease)}
 
 
 /* riquadri: foto con cornice sottile staccata, che diventa rossa al passaggio */
-.steps img,.crea video,.crea .pics img,.lamps figure img,.about img,.rbody img{border-radius:18px;outline:1px solid rgba(0,0,0,.2);outline-offset:6px;transition:outline-color .3s,outline-offset .3s var(--ease)}
+.steps img,.crea video,.crea .pics img,.lamps figure img,.about img,.rbody img{border-radius:0;outline:1px solid rgba(0,0,0,.2);outline-offset:6px;transition:outline-color .3s,outline-offset .3s var(--ease)}
 .dark :is(.crea video,.crea .pics img,.lamps figure img),.rbody img{outline-color:rgba(255,255,255,.22)}
 :is(.steps img,.crea video,.crea .pics img,.lamps figure img,.about img):hover{outline-color:var(--accent);outline-offset:9px}
-.screen,.stage{border:1px solid rgba(0,0,0,.16);border-radius:22px;background:var(--grid),var(--ground-2)}
+.screen,.stage{border:1px solid rgba(0,0,0,.16);border-radius:0;background:var(--grid),var(--ground-2)}
 .stage{border-color:rgba(255,255,255,.16);background:var(--grid-d),var(--night-2);overflow:hidden}
 .lampctl{padding:16px} .hint{padding:16px}
-.screen video{border-radius:12px}
+.screen video{border-radius:0}
 /* testa di ogni progetto */
 .pbar{grid-column:1/-1;display:flex;gap:var(--m);align-items:center;border-top:1px solid currentColor;padding-top:12px;margin-bottom:clamp(28px,4vw,56px)}
 .pbar b{font-weight:500;color:var(--accent)} .apps .pbar b{color:var(--ink)}
@@ -270,7 +273,7 @@ dialog[open]{animation:rise .45s var(--ease)}
   </div>
   <div class="hero-txt">
     <h1>Giovanni Mandato</h1>
-    <p class="lead">Product, 3D e web designer. Disegno oggetti, li stampo in 3D e costruisco i siti che li raccontano.</p>
+    <p class="lead">Sono un product, 3D e web designer di Aversa. Disegno oggetti, li stampo in 3D finché non funzionano davvero, e poi costruisco i siti che li raccontano.</p>
     <div class="acts">
       <a class="btn" href="#prodotto">Guarda i progetti</a>
       <a class="btn ghost" href="#contatti">Scrivimi</a>
@@ -278,7 +281,7 @@ dialog[open]{animation:rise .45s var(--ease)}
   </div>
   <div class="hero-cap">
     <b>Creaturelle</b>
-    <span>Vaso idroponico modulare, sei pezzi stampati in PETG che si montano a mano.</span>
+    <span>Un vaso idroponico modulare: sei pezzi stampati in PETG che si montano a mano, senza colla e senza terra.</span>
     <em id="chhint">Scorri: si apre</em>
   </div>
   <div class="prog" aria-hidden="true"><i></i></div>
@@ -286,19 +289,19 @@ dialog[open]{animation:rise .45s var(--ease)}
 </header>
 
 <section class="process" aria-label="Come lavoro">
-  <p class="st rv">Mi piace seguire un progetto dall'inizio alla fine: dal modello sullo schermo al pezzo che puoi tenere in mano, fino al sito che lo presenta.</p>
+  <p class="st rv">Mi piace seguire un progetto dall'inizio alla fine. Parto da un modello sullo schermo, lo stampo, lo provo, lo correggo, e quando il pezzo funziona in mano gli costruisco intorno le immagini e il sito che lo presentano.</p>
   <ol class="steps">
-    <li class="rv"><img src="img/creaturelle-esploso.jpg" alt="Vista esplosa di Creaturelle: le sei parti del vaso" loading="lazy"><b>Modello</b><span>Modellazione parametrica in Blender, pezzo per pezzo, con le misure della stampante.</span></li>
-    <li class="rv"><img src="img/creaturelle-foto.jpg" alt="Prototipo di Creaturelle stampato in PETG traslucido" loading="lazy"><b>Stampa</b><span>Prototipi stampati in scala reale e provati con acqua e piante vere.</span></li>
-    <li class="rv"><img src="img/amelia-02.webp" alt="La lampada Amelia accesa" loading="lazy"><b>Pezzo</b><span>Il prodotto finito, venduto da Alleria a Napoli.</span></li>
-    <li class="rv"><img src="img/creaturelle-controluce.jpg" alt="Render di Creaturelle in controluce" loading="lazy"><b>Racconto</b><span>Render, animazioni e il sito.</span></li>
+    <li class="rv"><img src="img/creaturelle-esploso.jpg" alt="Vista esplosa di Creaturelle: le sei parti del vaso" loading="lazy"><b>Modello</b><span>Disegno ogni pezzo in Blender con misure parametriche, così posso cambiare uno spessore o un incastro e il resto si adatta da solo.</span></li>
+    <li class="rv"><img src="img/creaturelle-foto.jpg" alt="Prototipo di Creaturelle stampato in PETG traslucido" loading="lazy"><b>Stampa</b><span>Stampo i prototipi in scala reale e li provo con acqua e piante vere. Se perde o non regge, torno al modello.</span></li>
+    <li class="rv"><img src="img/amelia-02.webp" alt="La lampada Amelia accesa" loading="lazy"><b>Pezzo</b><span>Il prodotto finito, quello che arriva a chi lo compra. Le lampade, per esempio, le vende Alleria a Napoli.</span></li>
+    <li class="rv"><img src="img/creaturelle-controluce.jpg" alt="Render di Creaturelle in controluce" loading="lazy"><b>Racconto</b><span>Alla fine racconto il pezzo: render, brevi animazioni e un sito pensato apposta per lui.</span></li>
   </ol>
 </section>
 
 <section id="prodotto" class="prod dark" aria-labelledby="h-prod">
   <div class="chap">
     <h2 class="rv" id="h-prod">Prodotto & 3D</h2>
-    <p class="rv">Oggetti progettati, stampati in 3D e provati davvero. Poi render e animazioni in Blender per presentarli.</p>
+    <p class="rv">Oggetti che ho progettato, stampato in 3D e provato a casa e in negozio. Ogni progetto qui sotto ha il suo modello, i suoi prototipi e le immagini che ho fatto in Blender per presentarlo.</p>
   </div>
 
   <article class="crea">
@@ -308,10 +311,10 @@ dialog[open]{animation:rise .45s var(--ease)}
     </div>
     <div class="txt">
       <h3 class="rv">Creaturelle</h3>
-      <p class="tag rv">Un vaso idroponico modulare stampato in 3D in PETG traslucido. Un corpo tiene l'acqua, una testa tiene la pianta.</p>
+      <p class="tag rv">Un vaso idroponico modulare stampato in 3D in PETG traslucido. Il corpo è un cubo che tiene l'acqua, la testa sopra tiene la pianta, e le radici scendono a bere: attraverso la plastica le vedi crescere.</p>
       <dl class="facts rv">
-        <dt>Cosa</dt><dd>Sei parti, niente terra, montate senza colla né attrezzi. Le teste cambiano, i corpi si impilano.</dd>
-        <dt>Io</dt><dd>Design, modellazione 3D, stampa, foto, render e spot verticale in 4K.</dd>
+        <dt>Cosa</dt><dd>Sei parti, niente terra, montate senza colla né attrezzi. Le teste si cambiano a piacere, alcune hanno la forma di un volto, e i corpi si impilano per fare una piccola famiglia sulla mensola.</dd>
+        <dt>Io</dt><dd>Tutto: l'idea, il modello 3D, le stampe di prova, le foto, i render e uno spot verticale in 4K.</dd>
         <dt>Strumenti</dt><dd>Blender, modellazione parametrica, stampa 3D</dd>
       </dl>
       <div class="acts rv">
@@ -320,8 +323,8 @@ dialog[open]{animation:rise .45s var(--ease)}
       </div>
       <div class="pics">
         <img class="rv" src="img/creaturelle-famiglia.jpg" alt="La famiglia di Creaturelle, render" loading="lazy">
-        <img class="rv" src="tav/creaturelle/04.jpg" alt="Le teste di Creaturelle" loading="lazy">
-        <img class="rv" src="tav/creaturelle/09.jpg" alt="Nove Creaturelle viste dall'alto" loading="lazy">
+        <img class="rv" src="img/creaturelle-faccia.jpg" alt="Una Creaturella da vicino, con la radice che pesca nell'acqua" loading="lazy">
+        <img class="rv" src="img/creaturelle-dallalto.jpg" alt="Creaturelle viste dall'alto" loading="lazy">
       </div>
     </div>
   </article>
@@ -331,7 +334,7 @@ dialog[open]{animation:rise .45s var(--ease)}
     <div class="head">
       <h3 class="rv">Alleria Lamps</h3>
       <div>
-        <p class="rv">Tre lampade che progettiamo e stampiamo noi, da Alleria a Napoli. Ognuna ha i suoi diffusori, i suoi colori e le sue trame litofaniche.</p>
+        <p class="rv">Tre lampade che progettiamo e stampiamo noi, da Alleria a Napoli. Ognuna ha il suo diffusore, i suoi colori e le sue trame litofaniche: da spente sembrano un oggetto semplice, da accese il disegno appare nella luce.</p>
         <div class="acts rv">
           <button class="btn" data-open="lampade">Leggi il progetto</button>
           <a class="btn ghost" href="https://www.behance.net/gallery/258907263" target="_blank" rel="noopener">Su Behance</a>
@@ -341,7 +344,7 @@ dialog[open]{animation:rise .45s var(--ease)}
     <div class="stage rv" id="stage">
       <img class="fallback" src="img/amelia-01.webp" alt="La lampada Amelia, stampata in 3D da Alleria">
       <canvas id="lamp" aria-label="Modello 3D della lampada, trascina per girarlo"></canvas>
-      <p class="hint" id="hint">Questa è una mia lampada, il modello 3D vero. Trascinala per girarla e accendila.</p>
+      <p class="hint" id="hint">Questo è il modello 3D vero, lo stesso che mando in stampa. Trascinalo per girarlo, scegli una lampada e accendila: le righe che vedi sono gli strati di stampa.</p>
       <div class="lampctl" role="group" aria-label="Scegli la lampada">
         <button class="chip" data-lamp="0" aria-pressed="true">Amelia</button>
         <button class="chip" data-lamp="1" aria-pressed="false">Pulcinella</button>
@@ -350,9 +353,9 @@ dialog[open]{animation:rise .45s var(--ease)}
       </div>
   </div>
     <div class="row">
-      <figure class="rv"><img src="img/amelia-01.webp" alt="Lampada Amelia" loading="lazy"><figcaption><b>Amelia</b>Il paralume è stampato in un pezzo solo: accesa, la parete sottile lascia passare la luce come la carta.</figcaption></figure>
-      <figure class="rv"><img src="img/pulcinella-01.webp" alt="Lampada Pulcinella" loading="lazy"><figcaption><b>Pulcinella</b>Il cappello che a Napoli si riconosce da lontano, ridotto a una curva sola.</figcaption></figure>
-      <figure class="rv"><img src="img/science-01.webp" alt="Lampada Amelia Science" loading="lazy"><figcaption><b>Amelia Science</b>Foto al microscopio tradotte in un rilievo che si legge solo a lampada accesa.</figcaption></figure>
+      <figure class="rv"><img src="img/amelia-01.webp" alt="Lampada Amelia" loading="lazy"><figcaption><b>Amelia</b>Il paralume è stampato in un pezzo solo, con una parete sottilissima. Da accesa la luce passa come attraverso la carta e la stanza diventa calda.</figcaption></figure>
+      <figure class="rv"><img src="img/pulcinella-01.webp" alt="Lampada Pulcinella" loading="lazy"><figcaption><b>Pulcinella</b>Il cappello di Pulcinella, quello che a Napoli si riconosce da lontano, ridotto a una curva sola che si accende.</figcaption></figure>
+      <figure class="rv"><img src="img/science-01.webp" alt="Lampada Amelia Science" loading="lazy"><figcaption><b>Amelia Science</b>Foto prese al microscopio e trasformate in un rilievo sul paralume. Da spenta è una texture bianca, da accesa leggi il disegno.</figcaption></figure>
     </div>
   </article>
 </section>
@@ -360,7 +363,7 @@ dialog[open]{animation:rise .45s var(--ease)}
 <section id="siti" class="webs" aria-labelledby="h-siti">
   <div class="chap">
     <h2 class="rv" id="h-siti">Siti web</h2>
-    <p class="rv">Disegnati e scritti a mano, pensati prima per il telefono. Uno è online, tre sono concept per locali di Aversa.</p>
+    <p class="rv">Disegnati e scritti a mano, partendo dal telefono perché è lì che li apre la gente. Uno è online, gli altri tre sono proposte per locali di Aversa che oggi vivono solo su Instagram. Scegli un nome per vederlo.</p>
   </div>
   <div class="sites">
     <p class="pbar lbl"><b>03</b><span>Siti web</span><span>Uno online, tre concept</span></p>
@@ -368,28 +371,28 @@ dialog[open]{animation:rise .45s var(--ease)}
       <li class="site on" data-v="alleria">
         <button aria-expanded="true"><span>Alleria</span></button>
         <div class="more"><div>
-          <p>Il sito dello studio: le tre lampade sono modelli 3D in tempo reale che scorri, fermi e accendi. Un solo file, niente richieste a servizi esterni.</p>
+          <p>Il sito dello studio. Le tre lampade sono modelli 3D in tempo reale: le giri, le fermi e le accendi come faresti in negozio. È un solo file, leggero, e non chiede niente a servizi esterni.</p>
           <div class="acts"><a class="btn" href="https://alleria.studio" target="_blank" rel="noopener">Apri alleria.studio</a><button class="btn ghost" data-open="alleria">Leggi il progetto</button></div>
         </div></div>
       </li>
       <li class="site" data-v="olive">
         <button aria-expanded="false"><span>ÓLIVE</span></button>
         <div class="more"><div>
-          <p>Oliveria e aperitivo. Solo foto vere del locale e i suoi cartelli dipinti a mano; un'oliva 3D in WebGL cade lungo la pagina mentre scorri.</p>
+          <p>Oliveria e aperitivo. Ho usato solo foto vere del locale e i suoi cartelli dipinti a mano, e mentre scorri un'oliva in 3D cade lungo la pagina fino al menu.</p>
           <div class="acts"><button class="btn" data-open="olive">Leggi il progetto</button><a class="btn ghost" href="https://olivedemosito.netlify.app/" target="_blank" rel="noopener">Apri la demo</a></div>
         </div></div>
       </li>
       <li class="site" data-v="berenice">
         <button aria-expanded="false"><span>Berenice</span></button>
         <div class="more"><div>
-          <p>Cocktail bar e pizzeria dal 1994, con un menu dove ogni piatto ha il nome di un film. Il sito diventa un programma di cinema su una pagina sola.</p>
+          <p>Cocktail bar e pizzeria dal 1994, con un menu dove ogni piatto porta il nome di un film. Così il sito è diventato un programma di cinema, tutto su una pagina.</p>
           <div class="acts"><button class="btn" data-open="berenice">Leggi il progetto</button><a class="btn ghost" href="https://www.behance.net/gallery/258907083" target="_blank" rel="noopener">Su Behance</a></div>
         </div></div>
       </li>
       <li class="site" data-v="core">
         <button aria-expanded="false"><span>CORE</span></button>
         <div class="more"><div>
-          <p>Osteria romana che viveva solo su Instagram. Ora il menu è testo vero, una scheda per portata, e si prenota su WhatsApp.</p>
+          <p>Osteria romana che viveva solo su Instagram, con il menu in foto. Ora il menu è testo vero, una scheda per portata che si legge bene anche al sole, e per prenotare basta un tocco su WhatsApp.</p>
           <div class="acts"><button class="btn" data-open="core">Leggi il progetto</button><a class="btn ghost" href="https://www.behance.net/gallery/258907053" target="_blank" rel="noopener">Su Behance</a></div>
         </div></div>
       </li>
@@ -404,13 +407,13 @@ dialog[open]{animation:rise .45s var(--ease)}
 <section id="app" class="apps" aria-labelledby="h-app">
   <div class="chap">
     <h2 class="rv" id="h-app">App</h2>
-    <p class="rv">Dalle interviste al prototipo provato con persone vere: ricerca, architettura, schermate e test.</p>
+    <p class="rv">Due app nate dalle persone: prima le interviste, poi l'architettura e le schermate, infine un prototipo messo in mano a chi lo userebbe davvero.</p>
   </div>
   <article class="helys">
     <p class="pbar lbl"><b>04</b><span>Helys</span><span>App iOS e watchOS</span></p>
     <div>
       <h3 class="rv">Helys</h3>
-      <p class="tag rv">Un'app per prendere abbastanza sole senza rischi: legge l'indice UV e conta la vitamina D che produci.</p>
+      <p class="tag rv">Un'app per prendere il sole che serve, senza scottarsi. Legge l'indice UV di dove sei, conta la vitamina D che stai producendo e ti avvisa quando è il momento di tornare all'ombra.</p>
       <dl class="facts rv">
         <dt>Per</dt><dd>iOS e watchOS</dd>
         <dt>Io</dt><dd>Interviste, ideazione, schermate, prototipo, brand</dd>
@@ -431,7 +434,7 @@ dialog[open]{animation:rise .45s var(--ease)}
     <div class="head">
       <h3 class="rv">BeReal, ridisegnata</h3>
       <div>
-        <p class="rv">Un redesign non richiesto: due settimane, sei interviste, una nuova architettura e un test con dodici persone.</p>
+        <p class="rv">Un redesign che nessuno mi ha chiesto, fatto per capire meglio un'app che uso. Due settimane, sei interviste, una nuova architettura e un test con dodici persone per vedere se funzionava davvero.</p>
         <div class="acts rv">
           <button class="btn ghost" data-open="bereal">Leggi il progetto</button>
           <a class="link" href="https://www.behance.net/gallery/167227077" target="_blank" rel="noopener">Su Behance</a>
@@ -450,20 +453,20 @@ dialog[open]{animation:rise .45s var(--ease)}
   <img class="rv" src="img/giovanni.jpg" alt="Giovanni Mandato" loading="lazy">
   <div>
     <h2 class="rv" id="h-chi">Chi sono</h2>
-    <p class="bio rv">Sono Giovanni, lavoro ad Aversa, vicino Napoli. Progetto oggetti e li porto fino al pezzo che puoi tenere in mano.</p>
+    <p class="bio rv">Sono Giovanni e lavoro ad Aversa, vicino Napoli. Progetto oggetti e non mi fermo al disegno: li porto fino al pezzo che puoi tenere in mano, e poi li racconto.</p>
     <p class="rv">A luglio 2026 mi sono laureato in Design per la Comunità alla Federico II. Per la tesi ho progettato una posata con anima in PLA e rivestimento in resina epossidica termoformata, provata con prototipi fisici. Da gennaio 2026 porto avanti Alleria Creative Studio: lampade stampate in 3D, siti, mostre ed eventi.</p>
     <div class="tools rv"><span>Blender</span><span>Modellazione parametrica</span><span>Stampa 3D</span><span>Figma</span><span>Photoshop</span><span>Illustrator</span><span>InDesign</span><span>Claude Code</span></div>
     <ul class="svc">
-      <li class="rv"><b>Prodotto e prototipi</b><span>Dall'idea al pezzo stampato, provato in scala reale.</span></li>
-      <li class="rv"><b>Modelli 3D e render</b><span>Modelli puliti, render fotorealistici e brevi animazioni.</span></li>
-      <li class="rv"><b>Siti web</b><span>Per ristoranti, negozi e studi, pensati prima per il telefono.</span></li>
-      <li class="rv"><b>App, UI e UX</b><span>Ricerca, flussi, schermate e prototipo per iOS e watchOS.</span></li>
+      <li class="rv"><b>Prodotto e prototipi</b><span>Dall'idea al pezzo stampato, provato in scala reale e corretto finché non funziona.</span></li>
+      <li class="rv"><b>Modelli 3D e render</b><span>Modelli puliti e pronti per la stampa, render fotorealistici e brevi animazioni per i social.</span></li>
+      <li class="rv"><b>Siti web</b><span>Per ristoranti, negozi e studi, pensati prima per il telefono e scritti con parole semplici.</span></li>
+      <li class="rv"><b>App, UI e UX</b><span>Interviste, flussi, schermate e un prototipo da provare, per iOS e watchOS.</span></li>
     </ul>
   </div>
 </section>
 
 <footer id="contatti" class="contact dark">
-  <p class="rv">Disponibile per lavoro a tempo pieno e progetti freelance.</p>
+  <p class="rv">Sono disponibile per un lavoro a tempo pieno e per progetti freelance. Scrivimi anche solo per un'idea: rispondo sempre.</p>
   <a class="mail rv" href="mailto:giovannimandato@icloud.com?subject=Ciao%20Giovanni">giovannimandato@icloud.com</a>
   <div class="acts rv">
     <a class="btn" href="mailto:giovannimandato@icloud.com?subject=Ciao%20Giovanni">Scrivimi</a>
@@ -487,14 +490,14 @@ dialog[open]{animation:rise .45s var(--ease)}
 <script>
 // ---- progetti per il lettore
 const P = {
-  creaturelle:{t:'Creaturelle',n:11,b:258907239,d:'Vaso idroponico modulare stampato in 3D in PETG traslucido.'},
-  lampade:{t:'Alleria Lamps',n:13,b:258907263,d:'Tre lampade progettate e stampate in 3D da Alleria: Amelia, Pulcinella e Amelia Science.'},
-  alleria:{t:'Alleria, sito 3D',n:10,b:258907295,d:'Il sito di Alleria Creative Studio, con le lampade in 3D in tempo reale.'},
-  olive:{t:'ÓLIVE',n:12,b:258907061,d:'Concept di sito per un’oliveria con aperitivo ad Aversa.'},
-  berenice:{t:'Berenice',n:10,b:258907083,d:'Concept di sito per un cocktail bar e pizzeria con il Film Menu.'},
-  core:{t:'CORE',n:10,b:258907053,d:'Concept di sito per un’osteria romana ad Aversa.'},
-  helys:{t:'Helys',n:12,b:186174687,d:'App per la vitamina D su iOS e watchOS, dalle interviste al prototipo.'},
-  bereal:{t:'BeReal, redesign',n:12,b:167227077,d:'Redesign UX non richiesto: ricerca, architettura, schermate e test.'}
+  creaturelle:{t:'Creaturelle',n:11,b:258907239,d:'Un vaso idroponico modulare stampato in 3D in PETG traslucido. Qui trovi tutto il percorso: le prime idee, i pezzi uno per uno, le teste a forma di volto, le prove con le piante vere e le immagini finali.'},
+  lampade:{t:'Alleria Lamps',n:13,b:258907263,d:'Tre lampade progettate e stampate in 3D da Alleria a Napoli: Amelia, Pulcinella e Amelia Science. Le tavole mostrano come nascono le forme, come lavora la luce dentro il paralume e come appaiono a casa.'},
+  alleria:{t:'Alleria, sito 3D',n:10,b:258907295,d:'Il sito di Alleria Creative Studio. Le lampade sono modelli 3D in tempo reale che puoi girare e accendere, e tutto sta in un solo file leggero.'},
+  olive:{t:'ÓLIVE',n:12,b:258907061,d:'Una proposta di sito per un’oliveria con aperitivo ad Aversa, costruita solo con le foto vere del locale e i suoi cartelli dipinti a mano.'},
+  berenice:{t:'Berenice',n:10,b:258907083,d:'Una proposta di sito per un cocktail bar e pizzeria aperto dal 1994, dove ogni piatto ha il nome di un film e la pagina diventa un programma di cinema.'},
+  core:{t:'CORE',n:10,b:258907053,d:'Una proposta di sito per un’osteria romana ad Aversa: il menu passa dalle foto su Instagram a testo vero, e si prenota con un tocco su WhatsApp.'},
+  helys:{t:'Helys',n:12,b:186174687,d:'Un’app per iPhone e Apple Watch che ti aiuta a prendere la vitamina D senza scottarti. Le tavole partono dalle interviste e arrivano al prototipo provato con le persone.'},
+  bereal:{t:'BeReal, redesign',n:12,b:167227077,d:'Un redesign che nessuno mi ha chiesto, per capire meglio un’app che uso ogni giorno: interviste, nuova architettura, schermate e un test con dodici persone.'}
 };
 const ORDER = Object.keys(P);
 const dlg = document.getElementById('reader');
@@ -559,7 +562,7 @@ document.querySelectorAll('video').forEach(v => vo.observe(v));
   const x = new Float32Array(S), v = new Float32Array(S);
   let t = 0, drawn = -1, lx = null, mx = 0, my = 0, tx = 0, ty = 0;
   // spinta: le fette vicine al puntatore prendono la velocità del mouse, poi molle e gravità le riportano giù
-  const push = (cy, dx) => { for (let i = 0; i < S; i++){ const d = (i - cy) / 6; v[i] += Math.max(-40, Math.min(40, dx)) * .3 * Math.exp(-d * d); } };
+  const push = (cy, dx) => { for (let i = 0; i < S; i++){ const d = (i - cy) / 6; v[i] += Math.max(-30, Math.min(30, dx)) * .16 * Math.exp(-d * d); } };
   box.addEventListener('pointermove', e => {
     const r = cv.getBoundingClientRect();
     if (lx !== null && !still) push((e.clientY - r.top) / r.height * S, (e.clientX - lx) / r.width * W);
@@ -580,12 +583,12 @@ document.querySelectorAll('video').forEach(v => vo.observe(v));
     for (let i = 0; i < S; i++){
       const k = .03 + .09 * i / S;                       // in basso la base tiene, in alto oscilla di più
       const n = (i ? x[i-1] : x[i]) + (i < S - 1 ? x[i+1] : x[i]) - 2 * x[i];
-      v[i] = (v[i] - x[i] * k + n * .15) * .9; x[i] += v[i]; e += Math.abs(x[i]);
+      v[i] = (v[i] - x[i] * k + n * .3) * .9; x[i] = Math.max(-28, Math.min(28, x[i] + v[i])); e += Math.abs(x[i]);
     }
     const fi = Math.round(t * (N - 1)), f = F[fi];
     if (f.complete && (fi !== drawn || e > .3)){
       cx.clearRect(0, 0, W, H);
-      for (let i = 0; i < S; i++) cx.drawImage(f, 0, i * sh, W, sh + 1, x[i], i * sh, W, sh + 1);
+      for (let j = 0, q = sh / 5; j < S * 5; j++){ const u = j / 5, a = u | 0, b = Math.min(S - 1, a + 1); cx.drawImage(f, 0, j * q, W, q + 1, x[a] + (x[b] - x[a]) * (u - a), j * q, W, q + 1); }
       drawn = e > .3 ? -1 : fi;
     }
     if (still) return;
@@ -597,16 +600,40 @@ document.querySelectorAll('video').forEach(v => vo.observe(v));
 // ---- titoli a puntini: i punti si allargano e scorrono seguendo il mouse
 (function(){
   const L = 'h1,h2,h3,.site>button>span,.hero-cap b,.steps b,.lamps figcaption b,.svc b,.contact .big';
-  document.querySelectorAll(L).forEach(el => el.classList.add('dm'));
+  const split = el => {
+    el.setAttribute('aria-label', el.textContent.trim());
+    const tw = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), nodes = [];
+    while (tw.nextNode()) nodes.push(tw.currentNode);
+    nodes.forEach(n => {
+      const f = document.createDocumentFragment();
+      n.textContent.split(/(\s+)/).forEach(w => {
+        if (!w) return;
+        if (/^\s+$/.test(w)) return f.append(w);
+        const ws = document.createElement('span'); ws.className = 'w'; ws.setAttribute('aria-hidden', 'true');
+        for (const c of w){ const cs = document.createElement('span'); cs.className = 'ch'; cs.textContent = c; ws.append(cs); }
+        f.append(ws);
+      });
+      n.replaceWith(f);
+    });
+  };
+  document.querySelectorAll(L).forEach(el => { el.classList.add('dm'); split(el); });
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   let hot = null;
+  const rest = el => el.querySelectorAll('.ch').forEach(c => c.style.transform = '');
   addEventListener('pointermove', e => {
     const el = e.target.closest && e.target.closest('.dm');
-    if (el !== hot){ hot && hot.classList.remove('hot'); hot = el; hot && hot.classList.add('hot'); }
+    if (el !== hot){ if (hot){ hot.classList.remove('hot'); rest(hot); } hot = el; hot && hot.classList.add('hot'); }
     if (!hot) return;
-    const r = hot.getBoundingClientRect();
-    hot.style.setProperty('--px', ((e.clientX - r.left) * -.06).toFixed(1) + 'px');
-    hot.style.setProperty('--py', ((e.clientY - r.top) * -.06).toFixed(1) + 'px');
+    const r = hot.getBoundingClientRect(), mx = e.clientX - r.left, my = e.clientY - r.top;
+    const R = parseFloat(getComputedStyle(hot).fontSize) * 1.1;
+    hot.style.setProperty('--px', (mx * -.06).toFixed(1) + 'px');
+    hot.style.setProperty('--py', (my * -.06).toFixed(1) + 'px');
+    // le lettere vicine al puntatore si scansano, come spinte, e si inclinano un poco
+    hot.querySelectorAll('.ch').forEach(c => {
+      const dx = c.offsetLeft + c.offsetWidth / 2 - mx, dy = c.offsetTop + c.offsetHeight / 2 - my, d = Math.hypot(dx, dy) || 1;
+      const k = Math.max(0, 1 - d / R);
+      c.style.transform = k ? `translate(${(dx / d * k * R * .22).toFixed(1)}px,${(dy / d * k * R * .3).toFixed(1)}px) rotate(${(dx / d * k * 10).toFixed(1)}deg)` : '';
+    });
   }, {passive: true});
 })();
 
@@ -616,10 +643,28 @@ document.querySelectorAll('video').forEach(v => vo.observe(v));
   if (!window.THREE) return;
   let r; try { r = new THREE.WebGLRenderer({canvas:cv, antialias:true, alpha:true}); } catch(e){ return; }
   r.outputEncoding = THREE.sRGBEncoding; r.setPixelRatio(Math.min(devicePixelRatio, 2));
-  const scene = new THREE.Scene(), cam = new THREE.PerspectiveCamera(30, 1, .1, 100);
-  cam.position.set(0, .5, 4.6); cam.lookAt(0, 0, 0);
-  scene.add(new THREE.HemisphereLight(0xffffff, 0x222226, .9));
-  const key = new THREE.DirectionalLight(0xffffff, 1.1); key.position.set(2, 3, 3); scene.add(key);
+  r.toneMapping = THREE.ACESFilmicToneMapping; r.toneMappingExposure = .92;
+  const scene = new THREE.Scene(), cam = new THREE.PerspectiveCamera(28, 1, .1, 100);
+  cam.position.set(0, .55, 4.8); cam.lookAt(0, -.05, 0);
+  // riflessi morbidi: una piccola stanza con tre pannelli luminosi, cotta in una mappa d'ambiente
+  { const room = new THREE.Scene(), box = new THREE.BoxGeometry();
+    const walls = new THREE.Mesh(box, new THREE.MeshBasicMaterial({color:0x2a2a2c, side:THREE.BackSide})); walls.scale.setScalar(12); room.add(walls);
+    [[3,2,2,3,3,.2, 5],[3.5,1,-1,.2,3,4, 3],[0,4.5,0,4,.2,4, 2]].forEach(([x,y,z,a,b,c,i]) => {
+      const m = new THREE.Mesh(box, new THREE.MeshBasicMaterial({color:new THREE.Color(1,1,1).multiplyScalar(i)})); m.position.set(x,y,z); m.scale.set(a,b,c); room.add(m); });
+    scene.environment = new THREE.PMREMGenerator(r).fromScene(room, .04).texture; }
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x222226, .15));
+  const key = new THREE.DirectionalLight(0xfff4e8, 1.2); key.position.set(3.5, 2.5, 1); scene.add(key);
+  const rim = new THREE.DirectionalLight(0xdfe8ff, .8); rim.position.set(-3, 1.5, -2.5); scene.add(rim);
+  // ombra di contatto sotto la lampada
+  { const c = document.createElement('canvas'); c.width = c.height = 128; const g = c.getContext('2d'), gr = g.createRadialGradient(64,64,0,64,64,64);
+    gr.addColorStop(0,'rgba(0,0,0,.55)'); gr.addColorStop(1,'rgba(0,0,0,0)'); g.fillStyle = gr; g.fillRect(0,0,128,128);
+    const sh = new THREE.Mesh(new THREE.PlaneGeometry(1.5, 1.5), new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(c), transparent:true, depthWrite:false}));
+    sh.rotation.x = -Math.PI / 2; sh.position.y = -.625; scene.add(sh); }
+  // linee di stampa: righe orizzontali fini sulla plastica, come nei pezzi veri stampati a strati
+  const layers = (mat, n) => { mat.onBeforeCompile = sh => {
+    sh.vertexShader = 'varying float vLy;\n' + sh.vertexShader.replace('#include <begin_vertex>', '#include <begin_vertex>\nvLy = position.y;');
+    sh.fragmentShader = 'varying float vLy;\n' + sh.fragmentShader.replace('#include <normal_fragment_maps>',
+      `#include <normal_fragment_maps>\nnormal = normalize(normal + vec3(0., sin(vLy * ${n.toFixed(1)}) * .14, 0.));`); }; mat.needsUpdate = true; };
   const bulb = new THREE.PointLight(0xffc98a, 0, 6); scene.add(bulb);
   const group = new THREE.Group(); scene.add(group);
   const lin = c => new THREE.Color(c).convertSRGBToLinear();
@@ -648,6 +693,8 @@ document.querySelectorAll('video').forEach(v => vo.observe(v));
     if (cache[i]) return done(cache[i]);
     loader.load('3d/' + LAMPS[i].f, g => {
       const m = g.scene, acc = LAMPS[i].dress(m);
+      m.traverse(n => { if (!n.isMesh) return; n.geometry.computeBoundingBox(); const h = n.geometry.boundingBox.max.y - n.geometry.boundingBox.min.y;
+        [].concat(n.material).forEach(x => { x.envMapIntensity = .9; if (x.roughness > .95) x.roughness = .72; if (acc.includes(x)){ x.color.multiplyScalar(.7); x.roughness = .55; } layers(x, Math.PI * 2 * 110 / (h || 1)); }); });
       const box = new THREE.Box3().setFromObject(m), s = 1.25 / box.getSize(new THREE.Vector3()).y;
       m.scale.setScalar(s); box.setFromObject(m); m.position.sub(box.getCenter(new THREE.Vector3()));
       cache[i] = {model:m, acc}; done(cache[i]);
