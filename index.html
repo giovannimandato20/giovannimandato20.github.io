@@ -565,8 +565,8 @@ document.querySelectorAll('video').forEach(v => vo.observe(v));
     if (still) return;
     const r = cv.getBoundingClientRect(), px = (e.clientX - r.left) / r.width * W, py = (e.clientY - r.top) / r.height * H;
     for (let i = 1; i < P; i++){
-      const dx = C[fi][i][0] - px, dy = C[fi][i][1] - py, d = Math.hypot(dx, dy) || 1, k = Math.max(0, 1 - d / R);
-      o[i].tx = dx / d * k * R * .14; o[i].ty = dy / d * k * R * .16; o[i].tr = dx / d * k * .14;
+      const dx = C[fi][i][0] - px, dy = C[fi][i][1] - py, d = Math.hypot(dx, dy) || 1, k = Math.max(0, 1 - d / R) * (.25 + .75 * t);
+      o[i].tx = dx / d * k * R * .06; o[i].ty = dy / d * k * R * .06; o[i].tr = dx / d * k * .05;
     }
   });
   box.addEventListener('pointerleave', () => o.forEach(p => p.tx = p.ty = p.tr = 0));
@@ -588,7 +588,7 @@ document.querySelectorAll('video').forEach(v => vo.observe(v));
     if (f.complete && (fi !== drawn || e > .05)){
       cx.clearRect(0, 0, W, H);
       for (let i = 0; i < P; i++){
-        const [cxp, cyp] = C[fi][i], q = o[i];
+        const j = i === 4 && t < .35 ? 5 : i, [cxp, cyp] = C[fi][j], q = o[j];   // da chiusa cestello e pianta sono un pezzo solo
         cx.setTransform(1, 0, 0, 1, cxp + q.x, cyp + q.y); cx.rotate(q.r); cx.translate(-cxp, -cyp);
         cx.drawImage(f, i * W, 0, W, H, 0, 0, W, H);
       }
@@ -673,6 +673,9 @@ document.querySelectorAll('video').forEach(v => vo.observe(v));
   const loader = new THREE.GLTFLoader(), draco = new THREE.DRACOLoader();
   draco.setDecoderPath('3d/draco/'); loader.setDRACOLoader(draco);
 
+  // la litofania di Amelia Science, la stessa del sito di Alleria: il disegno in rilievo da spenta, in luce da accesa
+  const tex = (f, srgb) => { const t = new THREE.TextureLoader().load('3d/' + f); t.wrapS = THREE.RepeatWrapping; t.flipY = false; if (srgb) t.encoding = THREE.sRGBEncoding; return t; };
+  const LITO = tex('science-lito.jpg', true), RILIEVO = tex('science-normal.jpg');
   // materiali come sul sito di Alleria
   const LAMPS = [
     {f:'amelia.glb', dress(m){ const acc=[]; m.traverse(n=>{ if(!n.isMesh) return; [].concat(n.material).forEach(x=>{
@@ -682,7 +685,8 @@ document.querySelectorAll('video').forEach(v => vo.observe(v));
     {f:'pulcinella.glb', dress(m){ const acc=[]; m.traverse(n=>{ if(!n.isMesh) return; const d=/diff/i.test(n.name);
         n.material=new THREE.MeshStandardMaterial({color:lin(d?0xF7F2E4:0x18181b),roughness:d?.9:1,emissive:new THREE.Color(d?0xFFD9A8:0),side:d?THREE.DoubleSide:THREE.FrontSide}); if(d) acc.push(n.material); }); return acc; }},
     {f:'amelia-science.glb', dress(m){ const acc=[]; m.traverse(n=>{ if(!n.isMesh) return; const d=/diff/i.test(n.name);
-        n.material=new THREE.MeshStandardMaterial({color:lin(d?0xF2EFEA:0x6A3A90),roughness:d?.86:1,emissive:new THREE.Color(d?0xFFFFFF:0),side:d?THREE.DoubleSide:THREE.FrontSide}); if(d) acc.push(n.material); }); return acc; }}
+        n.material=new THREE.MeshStandardMaterial({color:lin(d?0xF2EFEA:0x6A3A90),roughness:d?.86:1,emissive:new THREE.Color(d?0xFFFFFF:0),side:d?THREE.DoubleSide:THREE.FrontSide});
+        if(d){ Object.assign(n.material,{emissiveMap:LITO,normalMap:RILIEVO,normalScale:new THREE.Vector2(.9,.9)}); acc.push(n.material); } }); return acc; }}
   ];
   const cache = [];
   let cur = null, acc = [], on = false, glow = 0, rotY = .5, vel = 0, drag = null;
