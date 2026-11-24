@@ -1,0 +1,652 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Giovanni Mandato · Product, 3D & Web Designer</title>
+<meta name="description" content="Portfolio di Giovanni Mandato, product, 3D e web designer ad Aversa. Lampade stampate in 3D, vasi idroponici, siti web e app.">
+<style>
+@font-face{font-family:"Inter Tight";src:url(font/it-400.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Inter Tight";src:url(font/it-600.woff2) format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Inter Tight";src:url(font/it-800.woff2) format("woff2");font-weight:800;font-display:swap}
+:root{
+  --ground:#EDEDEB; --ground-2:#E1E1DE; --ink:#0B0B0B; --night:#0B0B0B; --night-2:#1A1A1A;
+  --paper:#EDEDEB; --accent:#E5262A; --sun:#FFC21A; --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --grid:radial-gradient(rgba(0,0,0,.16) 1px,transparent 1.5px) 0 0/14px 14px; --grid-d:radial-gradient(rgba(255,255,255,.13) 1px,transparent 1.5px) 0 0/14px 14px;
+  --m:clamp(16px,2.4vw,32px); --gap:clamp(96px,13vw,200px);
+  --t-hero:clamp(56px,11.5vw,184px); --t-1:clamp(40px,6.4vw,104px); --t-2:clamp(26px,3vw,44px);
+  --t-st:clamp(22px,2.2vw,34px); --t-body:clamp(16px,1.15vw,19px); --t-s:15px;
+  --ease:cubic-bezier(.2,.7,.1,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:"Inter Tight",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:var(--t-body);line-height:1.5;color:var(--ink);background:var(--grid),var(--ground);-webkit-font-smoothing:antialiased}
+img,video,canvas{display:block;max-width:100%}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+::selection{background:var(--accent);color:#fff}
+.wrap{padding-inline:var(--m)}
+h1,h2,h3{font-weight:700;letter-spacing:-.035em;line-height:.95}
+.dark{background:var(--grid-d),var(--night);color:var(--paper)}
+/* testo a matrice di punti: il font del sito bucato da una griglia di punti */
+.dm{-webkit-mask:radial-gradient(circle closest-side,#000 74%,transparent 80%) 0 0/.075em .075em;mask:radial-gradient(circle closest-side,#000 74%,transparent 80%) 0 0/.075em .075em}
+.lbl{font-family:var(--mono);font-size:12.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase}
+.btn{display:inline-flex;align-items:center;gap:.5em;padding:.85em 1.4em;border-radius:999px;background:var(--accent);color:#fff;font-weight:600;text-decoration:none;transition:transform .25s var(--ease),background .25s}
+.btn:hover{transform:translateY(-2px)} .btn:active{transform:scale(.97)}
+.btn.ghost{background:var(--ground-2);color:var(--ink)}
+.dark .btn.ghost{background:var(--night-2);color:var(--paper)}
+.link{font-weight:600;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:.25em;transition:color .2s}
+.link:hover{color:var(--accent)}
+
+/* nav */
+.nav{position:fixed;inset:0 0 auto;z-index:20;display:flex;align-items:center;gap:clamp(14px,2.4vw,40px);padding:14px var(--m);color:#fff;mix-blend-mode:difference;font-family:var(--mono);font-weight:500;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+.nav a{text-decoration:none}
+.nav .who{margin-right:auto;font-weight:700;letter-spacing:-.02em}
+.nav .lk{opacity:.92;transition:opacity .2s} .nav .lk:hover{opacity:1;text-decoration:underline;text-underline-offset:.3em}
+@media (max-width:760px){.nav .lk{display:none}}
+
+/* hero: Creaturelle che si apre */
+.hero{min-height:100svh;position:relative;overflow:hidden;display:grid;grid-template-columns:1fr auto 1fr;align-items:end;gap:var(--m);padding:96px var(--m) 40px}
+.hero [data-d]{transform:translate3d(calc(var(--mx,0)*var(--d)*14px),calc(var(--my,0)*var(--d)*10px + var(--sy,0)*var(--d)*-60px),0)}
+.bgword{position:absolute;inset:0;display:grid;place-items:center;font-size:clamp(58px,15.2vw,260px);font-weight:800;letter-spacing:-.04em;line-height:1;color:#BDBDB8;text-transform:uppercase;white-space:nowrap;pointer-events:none;padding-bottom:12svh}
+.bgword span{--d:-.5;display:block}
+.spec{position:absolute;pointer-events:none;display:flex;align-items:center;gap:8px;color:#55554F}
+.spec::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--ink)}
+.s1{--d:1.6;left:6%;top:20%} .s2{--d:-1.1;right:8%;top:17%} .s3{--d:2.2;right:5%;bottom:36%} .s4{--d:-1.8;left:30%;top:13%} .s5{--d:1;left:4%;bottom:40%}
+.s2::before{background:var(--accent);width:9px;height:9px}
+.redot{position:absolute;--d:-2;width:clamp(28px,3vw,48px);aspect-ratio:1;border-radius:50%;background:var(--accent);right:30%;top:30%;pointer-events:none}
+.crea-hero{grid-column:2;grid-row:1;align-self:center;position:relative;z-index:2;width:min(50vw,96svh,820px);margin-block:-6svh -10svh;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.crea-hero img{width:100%;height:auto;transition:transform .9s var(--ease);-webkit-mask:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent),linear-gradient(0deg,transparent,#000 16%);-webkit-mask-composite:source-in;mask:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent),linear-gradient(0deg,transparent,#000 16%);mask-composite:intersect}
+.crea-hero:hover img{transform:scale(1.02)}
+.part{position:absolute;left:78%;white-space:nowrap;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;background:var(--ink);color:#fff;padding:.45em .8em;border-radius:999px;opacity:0;transform:translateX(-8px);transition:opacity .4s var(--ease),transform .4s var(--ease)}
+.part.p1{top:16%}.part.p2{top:38.5%}.part.p3{top:46.5%}.part.p4{top:57%}.part.p5{top:72%}
+.crea-hero.open .part{opacity:1;transform:none}
+.crea-hero.open .p2{transition-delay:.06s}.crea-hero.open .p3{transition-delay:.12s}.crea-hero.open .p4{transition-delay:.18s}.crea-hero.open .p5{transition-delay:.24s}
+.hero-txt{grid-column:1;grid-row:1;position:relative;z-index:3;align-self:end}
+.hero h1{font-size:clamp(44px,5.6vw,96px);font-weight:800;letter-spacing:-.05em;line-height:.9;max-width:7ch}
+.hero .lead{font-size:var(--t-body);line-height:1.4;max-width:30ch;margin-top:20px}
+.hero .acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+.hero-cap{grid-column:3;grid-row:1;justify-self:end;align-self:end;position:relative;z-index:3;max-width:28ch;text-align:right}
+.hero-cap b{display:block;font-size:var(--t-2);letter-spacing:-.03em;line-height:1}
+.hero-cap span{display:block;margin-top:8px}
+.hero-cap em{display:inline-flex;align-items:center;gap:8px;margin-top:14px;font-style:normal;font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;background:var(--ink);color:#fff;padding:.6em 1em;border-radius:999px}
+.hero-cap em::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);animation:blink 1.4s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+.ticker{background:var(--ink);color:#fff;overflow:hidden;padding:20px 0;font-size:clamp(30px,4vw,64px);font-weight:800;letter-spacing:-.02em;text-transform:uppercase}
+.ticker div{display:flex;gap:1.2em;width:max-content;animation:tick 40s linear infinite}
+.ticker span::after{content:"";display:inline-block;width:.3em;height:.3em;border-radius:50%;background:var(--accent);margin-left:1.2em;vertical-align:.2em}
+@keyframes tick{to{transform:translateX(-50%)}}
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr;align-items:start;padding-top:72px;gap:20px}
+  .crea-hero{grid-column:1;grid-row:1;width:min(78vw,52svh);justify-self:center}
+  .hero-txt,.hero-cap{grid-column:1;grid-row:auto}
+  .crea-hero{margin-block:0 -4svh}
+  .hero-txt{grid-row:2}
+  .hero-cap{grid-row:3;justify-self:start;text-align:left}
+  .spec{display:none}
+  .bgword{place-items:start center;padding:28svh 0 0}
+  .part{left:66%;font-size:11px}
+}
+
+/* lampade in 3D */
+.stage{position:relative;height:min(78svh,820px);margin-top:clamp(40px,5vw,72px)}
+.stage canvas{width:100%;height:100%;touch-action:pan-y;cursor:grab}
+.stage canvas:active{cursor:grabbing}
+.stage .fallback{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.stage.ready .fallback{display:none}
+.lampctl{position:absolute;left:0;right:0;bottom:0;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.chip{padding:.6em 1.1em;border-radius:999px;background:var(--night-2);font-weight:600;font-size:15px;transition:background .25s,color .25s,transform .2s}
+.chip:hover{transform:translateY(-1px)} .chip[aria-pressed=true]{background:var(--paper);color:var(--ink)}
+.chip.on{background:var(--accent);color:#fff;margin-left:auto}
+.chip.on[aria-pressed=true]{background:var(--sun);color:var(--ink)}
+.hint{position:absolute;right:0;top:0;font-size:var(--t-s);color:#A9A9A9;max-width:24ch;text-align:right}
+@media (max-width:900px){
+  .stage{height:62svh;margin-inline:calc(var(--m)*-1)}
+  .lampctl{padding-inline:var(--m)} .hint{display:none}
+  .chip.on{margin-left:0}
+}
+@media (prefers-reduced-motion:reduce){.ticker div{animation:none}.hero [data-d]{transform:none}}
+
+/* process */
+.process{padding:var(--gap) var(--m)}
+.process .st{font-size:var(--t-st);line-height:1.25;max-width:30ch;letter-spacing:-.015em}
+.steps{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--m);margin-top:clamp(48px,6vw,96px);list-style:none}
+.steps li:nth-child(1){grid-column:1/5}
+.steps li:nth-child(2){grid-column:5/8;margin-top:18vw}
+.steps li:nth-child(3){grid-column:8/11;margin-top:6vw}
+.steps li:nth-child(4){grid-column:11/13;margin-top:24vw}
+.steps img{width:100%;aspect-ratio:4/5;object-fit:cover;background:var(--ground-2)}
+.steps b{display:block;font-size:var(--t-2);letter-spacing:-.03em;line-height:1;margin-top:16px}
+.steps span{display:block;margin-top:6px;max-width:30ch}
+@media (max-width:760px){
+  .steps{grid-template-columns:1fr 1fr}
+  .steps li:nth-child(n){grid-column:auto;margin-top:0}
+  .steps li:nth-child(even){margin-top:56px}
+}
+
+/* chapter heads */
+.chap{display:flex;align-items:end;justify-content:space-between;gap:var(--m);flex-wrap:wrap;padding:var(--gap) var(--m) clamp(40px,5vw,72px)}
+.chap h2{font-size:var(--t-1);font-weight:800;letter-spacing:-.045em}
+.chap p{max-width:38ch}
+
+/* product */
+.prod{padding-bottom:var(--gap)}
+.crea{display:grid;grid-template-columns:5fr 7fr;gap:var(--m);padding-inline:var(--m);align-items:start}
+.crea .vid{position:sticky;top:72px}
+.crea video{width:100%;aspect-ratio:9/16;object-fit:cover;background:var(--night-2)}
+.crea .txt h3,.lamps h3{font-size:var(--t-1);font-weight:800;letter-spacing:-.045em}
+.tag{font-size:var(--t-st);line-height:1.25;letter-spacing:-.015em;margin-top:20px;max-width:26ch}
+.facts{display:grid;grid-template-columns:auto 1fr;gap:6px 24px;margin-top:28px;max-width:52ch}
+.facts dt{font-weight:700} .dark .facts dd{color:#D8D6D0}
+.acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.crea .pics{display:grid;grid-template-columns:1fr 1fr;gap:var(--m);margin-top:clamp(48px,6vw,96px)}
+.crea .pics img{width:100%;aspect-ratio:1;object-fit:cover}
+.crea .pics img:first-child{grid-column:1/-1;aspect-ratio:16/10}
+.lamps{padding:var(--gap) var(--m) 0}
+.lamps .row{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--m);margin-top:clamp(40px,5vw,72px)}
+.lamps figure img{width:100%;aspect-ratio:3/4;object-fit:cover;transition:transform .8s var(--ease)}
+.lamps figure{overflow:hidden}
+.lamps figure:hover img{transform:scale(1.04)}
+.lamps figcaption{margin-top:14px} .lamps figcaption b{font-size:var(--t-2);letter-spacing:-.03em;display:block;line-height:1.05}
+.lamps .row figure:nth-child(2){margin-top:12vw}
+.lamps .head{display:grid;grid-template-columns:1fr 1fr;gap:var(--m);align-items:end}
+@media (max-width:900px){
+  .crea,.lamps .head{grid-template-columns:1fr}
+  .crea .vid{position:static;max-width:420px}
+  .lamps .row{grid-template-columns:1fr 1fr} .lamps .row figure:nth-child(2){margin-top:0}
+  .lamps .row figure:nth-child(3){grid-column:1/-1} .lamps .row figure:nth-child(3) img{aspect-ratio:4/3}
+}
+
+/* websites */
+.webs{padding-bottom:var(--gap)}
+.sites{display:grid;grid-template-columns:5fr 7fr;gap:var(--m);padding-inline:var(--m);align-items:start}
+.sites ol{list-style:none}
+.site>button{display:block;width:100%;text-align:left;padding:10px 0;font-size:var(--t-1);font-weight:800;letter-spacing:-.045em;line-height:1;color:#A19D94;transition:color .3s,transform .3s var(--ease)}
+.site>button:hover{color:var(--ink);transform:translateX(8px)}
+.site.on>button{color:var(--ink)}
+.site .more{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s var(--ease)}
+.site.on .more{grid-template-rows:1fr}
+.site .more>div{overflow:hidden}
+.site .more p{padding-top:8px;max-width:44ch}
+.site .more .acts{margin:20px 0 28px}
+.screen{position:sticky;top:80px;background:var(--ground-2);padding:clamp(10px,1.4vw,20px)}
+.screen video{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;background:#000;transition:opacity .35s}
+.screen .cap{display:flex;justify-content:space-between;gap:16px;margin-top:12px;font-size:var(--t-s);font-weight:600}
+@media (max-width:900px){.sites{grid-template-columns:1fr}.screen{position:static;order:-1}}
+
+/* apps */
+.apps{background:var(--accent);color:var(--ink);padding-bottom:var(--gap)}
+.apps .chap p{color:var(--ink)}
+.helys{display:grid;grid-template-columns:1fr 1fr;gap:var(--m);padding-inline:var(--m);align-items:center}
+.helys h3,.bereal h3{font-size:var(--t-1);font-weight:800;letter-spacing:-.045em}
+.phone{width:min(380px,78vw);margin-inline:auto;border-radius:52px;background:#111;padding:12px;transition:transform .5s var(--ease)}
+.phone img{border-radius:40px;width:100%;aspect-ratio:1170/2532;object-fit:cover;background:#fff}
+.sunctl{margin-top:32px;max-width:440px}
+.sunctl label{font-weight:700;display:flex;justify-content:space-between}
+.sunctl output{font-variant-numeric:tabular-nums}
+.sunctl input{width:100%;margin-top:12px;accent-color:var(--ink);height:32px}
+.bereal{padding:var(--gap) var(--m) 0}
+.bereal .head{display:grid;grid-template-columns:1fr 1fr;gap:var(--m);align-items:end}
+.bereal .row{display:flex;gap:var(--m);margin-top:clamp(40px,5vw,72px);justify-content:center}
+.bereal .row img{width:min(300px,30%);border-radius:36px;background:#111;padding:8px;transition:transform .5s var(--ease)}
+.bereal .row img:nth-child(2){transform:translateY(-48px)}
+.bereal .row img:hover{transform:translateY(-12px) rotate(-1deg)}
+@media (max-width:900px){.helys,.bereal .head{grid-template-columns:1fr}.phone{order:-1}.bereal .row img{width:31%;border-radius:20px;padding:4px}.bereal .row img:nth-child(2){transform:translateY(-20px)}}
+
+/* about */
+.about{display:grid;grid-template-columns:5fr 7fr;gap:var(--m);padding:var(--gap) var(--m)}
+.about img{width:100%;aspect-ratio:4/5;object-fit:cover;position:sticky;top:80px}
+.about h2{font-size:var(--t-1);font-weight:800;letter-spacing:-.045em}
+.about .bio{font-size:var(--t-st);line-height:1.3;letter-spacing:-.015em;margin-top:24px;max-width:28ch}
+.about .bio+p{margin-top:24px;max-width:56ch}
+.svc{list-style:none;margin-top:clamp(48px,6vw,88px)}
+.svc li{padding:22px 0;display:grid;grid-template-columns:1fr 1fr;gap:var(--m)}
+.svc b{font-size:var(--t-2);letter-spacing:-.03em;line-height:1.05}
+.svc li:nth-child(odd){background:var(--ground-2);padding-inline:20px;margin-inline:-20px}
+.tools{margin-top:40px;display:flex;flex-wrap:wrap;gap:8px}
+.tools span{background:var(--ground-2);padding:.45em 1em;border-radius:999px;font-weight:600;font-size:15px}
+@media (max-width:900px){.about{grid-template-columns:1fr}.about img{position:static;max-width:420px}.svc li{grid-template-columns:1fr;gap:6px}}
+
+/* contact */
+.contact{padding:var(--gap) var(--m) 32px}
+.contact p{font-size:var(--t-st);max-width:26ch;line-height:1.25;letter-spacing:-.015em}
+.mail{display:block;font-size:clamp(20px,6.2vw,124px);font-weight:800;letter-spacing:-.05em;line-height:1;margin-top:32px;text-decoration:none;word-break:break-word;transition:color .3s}
+.mail:hover{color:var(--accent)}
+.contact .acts{margin-top:40px}
+.contact .big{max-width:none;font-size:clamp(48px,15.6vw,250px);font-weight:800;letter-spacing:-.06em;line-height:.8;margin-top:var(--gap);white-space:nowrap}
+.foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:24px;font-size:var(--t-s);color:#A9A9A9}
+
+/* reader */
+dialog{border:0;padding:0;margin:0;width:100%;max-width:none;height:100%;max-height:none;background:var(--night);color:var(--paper)}
+dialog::backdrop{background:var(--night)}
+dialog[open]{animation:rise .45s var(--ease)}
+.rbar{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:12px;padding:12px var(--m);background:var(--night)}
+.rbar h2{font-size:var(--t-2);margin-right:auto;letter-spacing:-.03em}
+.rbody{max-width:1400px;margin:0 auto;padding:0 var(--m) 80px}
+.rbody>p{font-size:var(--t-st);line-height:1.25;max-width:34ch;margin:24px 0 40px;letter-spacing:-.015em}
+.rbody img{width:100%;height:auto;background:var(--night-2);margin-bottom:12px}
+.rbody .acts{justify-content:center;margin-top:48px}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+
+
+/* dettagli tecnici */
+.steps img,.crea video,.crea .pics img,.lamps figure,.screen,.about img{border-radius:22px}
+.screen video{border-radius:12px}
+.chap h2{text-transform:uppercase;letter-spacing:-.02em}
+.chap h2::after{content:"";display:inline-block;width:.16em;height:.16em;border-radius:50%;background:var(--accent);margin-left:.1em;-webkit-mask:none}
+.svc li{border-radius:20px;padding-inline:20px;margin-inline:-20px}
+.tools span,.chip,.screen .cap{font-family:var(--mono);font-size:12.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase}
+.facts dt{font-family:var(--mono);font-size:12.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding-top:.3em}
+.btn{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.06em;text-transform:uppercase}
+.btn.ghost:hover{background:var(--ink);color:#fff} .dark .btn.ghost:hover{background:var(--paper);color:var(--ink)}
+.apps{background:var(--grid),var(--accent)}
+
+/* motion */
+.rv{transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.js .rv{opacity:0;transform:translateY(28px)}
+.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}.js .rv{opacity:1;transform:none;transition:none}dialog[open]{animation:none}}
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add('js')</script>
+
+<nav class="nav" aria-label="Principale">
+  <a class="who" href="#top">Giovanni Mandato</a>
+  <a class="lk" href="#prodotto">Prodotto & 3D</a>
+  <a class="lk" href="#siti">Siti web</a>
+  <a class="lk" href="#app">App</a>
+  <a class="lk" href="#chi">Chi sono</a>
+  <a href="#contatti">Scrivimi</a>
+</nav>
+
+<main id="top">
+<header class="hero" id="hero">
+  <p class="bgword dm" aria-hidden="true"><span data-d>Creaturelle</span></p>
+  <span class="spec lbl s1" data-d>PETG traslucido</span><span class="spec lbl s2" data-d>Progetto di punta</span><span class="spec lbl s3" data-d>Sei parti, zero colla</span><span class="spec lbl s4" data-d>Idroponica, senza terra</span><span class="spec lbl s5" data-d>Stampa 3D</span><i class="redot" data-d></i>
+  <button class="crea-hero" id="ch" aria-pressed="false" aria-label="Creaturelle: apri e chiudi la vista esplosa">
+    <img id="chimg" src="img/esploso/00.webp" alt="Creaturelle, vaso idroponico modulare stampato in 3D" width="700" height="980">
+    <span class="part p1">01 Pianta</span><span class="part p2">02 Cestello</span><span class="part p3">03 Testa</span><span class="part p4">04 Coperchio</span><span class="part p5">05 Corpo</span>
+  </button>
+  <div class="hero-txt">
+    <h1>Giovanni Mandato</h1>
+    <p class="lead">Product, 3D e web designer. Disegno oggetti, li stampo in 3D e costruisco i siti che li raccontano.</p>
+    <div class="acts">
+      <a class="btn" href="#prodotto">Guarda i progetti</a>
+      <a class="btn ghost" href="#contatti">Scrivimi</a>
+    </div>
+  </div>
+  <div class="hero-cap">
+    <b>Creaturelle</b>
+    <span>Vaso idroponico modulare, sei pezzi stampati in PETG che si montano a mano.</span>
+    <em id="chhint">Passaci sopra: si apre.</em>
+  </div>
+</header>
+<div class="ticker" aria-hidden="true"><div class="dm"><span>Creaturelle</span><span>Amelia</span><span>Pulcinella</span><span>Amelia Science</span><span>Alleria</span><span>ÓLIVE</span><span>Berenice</span><span>CORE</span><span>Helys</span><span>BeReal</span><span>Creaturelle</span><span>Amelia</span><span>Pulcinella</span><span>Amelia Science</span><span>Alleria</span><span>ÓLIVE</span><span>Berenice</span><span>CORE</span><span>Helys</span><span>BeReal</span></div></div>
+
+<section class="process" aria-label="Come lavoro">
+  <p class="st rv">Mi piace seguire un progetto dall'inizio alla fine: dal modello sullo schermo al pezzo che puoi tenere in mano, fino al sito che lo presenta.</p>
+  <ol class="steps">
+    <li class="rv"><img src="img/creaturelle-esploso.jpg" alt="Vista esplosa di Creaturelle: le sei parti del vaso" loading="lazy"><b>Modello</b><span>Modellazione parametrica in Blender, pezzo per pezzo, con le misure della stampante.</span></li>
+    <li class="rv"><img src="img/creaturelle-foto.jpg" alt="Prototipo di Creaturelle stampato in PETG traslucido" loading="lazy"><b>Stampa</b><span>Prototipi stampati in scala reale e provati con acqua e piante vere.</span></li>
+    <li class="rv"><img src="img/amelia-02.webp" alt="La lampada Amelia accesa" loading="lazy"><b>Pezzo</b><span>Il prodotto finito, venduto da Alleria a Napoli.</span></li>
+    <li class="rv"><img src="img/creaturelle-controluce.jpg" alt="Render di Creaturelle in controluce" loading="lazy"><b>Racconto</b><span>Render, animazioni e il sito.</span></li>
+  </ol>
+</section>
+
+<section id="prodotto" class="prod dark" aria-labelledby="h-prod">
+  <div class="chap">
+    <h2 class="dm" id="h-prod" class="rv">Prodotto & 3D</h2>
+    <p class="rv">Oggetti progettati, stampati in 3D e provati davvero. Poi render e animazioni in Blender per presentarli.</p>
+  </div>
+
+  <article class="crea">
+    <div class="vid rv">
+      <video src="vid/creaturelle.mp4" poster="vid/creaturelle.jpg" muted loop playsinline autoplay preload="metadata" aria-label="Spot di Creaturelle realizzato in Blender"></video>
+    </div>
+    <div class="txt">
+      <h3 class="rv">Creaturelle</h3>
+      <p class="tag rv">Un vaso idroponico modulare stampato in 3D in PETG traslucido. Un corpo tiene l'acqua, una testa tiene la pianta.</p>
+      <dl class="facts rv">
+        <dt>Cosa</dt><dd>Sei parti, niente terra, montate senza colla né attrezzi. Le teste cambiano, i corpi si impilano.</dd>
+        <dt>Io</dt><dd>Design, modellazione 3D, stampa, foto, render e spot verticale in 4K.</dd>
+        <dt>Strumenti</dt><dd>Blender, modellazione parametrica, stampa 3D</dd>
+      </dl>
+      <div class="acts rv">
+        <button class="btn" data-open="creaturelle">Leggi il progetto</button>
+        <a class="btn ghost" href="https://www.behance.net/gallery/258907239" target="_blank" rel="noopener">Su Behance</a>
+      </div>
+      <div class="pics">
+        <img class="rv" src="img/creaturelle-famiglia.jpg" alt="La famiglia di Creaturelle, render" loading="lazy">
+        <img class="rv" src="tav/creaturelle/04.jpg" alt="Le teste di Creaturelle" loading="lazy">
+        <img class="rv" src="tav/creaturelle/09.jpg" alt="Nove Creaturelle viste dall'alto" loading="lazy">
+      </div>
+    </div>
+  </article>
+
+  <article class="lamps">
+    <div class="head">
+      <h3 class="rv">Alleria Lamps</h3>
+      <div>
+        <p class="rv">Tre lampade che progettiamo e stampiamo noi, da Alleria a Napoli. Ognuna ha i suoi diffusori, i suoi colori e le sue trame litofaniche.</p>
+        <div class="acts rv">
+          <button class="btn" data-open="lampade">Leggi il progetto</button>
+          <a class="btn ghost" href="https://www.behance.net/gallery/258907263" target="_blank" rel="noopener">Su Behance</a>
+        </div>
+      </div>
+    </div>
+    <div class="stage rv" id="stage">
+      <img class="fallback" src="img/amelia-01.webp" alt="La lampada Amelia, stampata in 3D da Alleria">
+      <canvas id="lamp" aria-label="Modello 3D della lampada, trascina per girarlo"></canvas>
+      <p class="hint" id="hint">Questa è una mia lampada, il modello 3D vero. Trascinala per girarla e accendila.</p>
+      <div class="lampctl" role="group" aria-label="Scegli la lampada">
+        <button class="chip" data-lamp="0" aria-pressed="true">Amelia</button>
+        <button class="chip" data-lamp="1" aria-pressed="false">Pulcinella</button>
+        <button class="chip" data-lamp="2" aria-pressed="false">Amelia Science</button>
+        <button class="chip on" id="light" aria-pressed="false">Accendi</button>
+      </div>
+  </div>
+    <div class="row">
+      <figure class="rv"><img src="img/amelia-01.webp" alt="Lampada Amelia" loading="lazy"><figcaption><b>Amelia</b>Il paralume è stampato in un pezzo solo: accesa, la parete sottile lascia passare la luce come la carta.</figcaption></figure>
+      <figure class="rv"><img src="img/pulcinella-01.webp" alt="Lampada Pulcinella" loading="lazy"><figcaption><b>Pulcinella</b>Il cappello che a Napoli si riconosce da lontano, ridotto a una curva sola.</figcaption></figure>
+      <figure class="rv"><img src="img/science-01.webp" alt="Lampada Amelia Science" loading="lazy"><figcaption><b>Amelia Science</b>Foto al microscopio tradotte in un rilievo che si legge solo a lampada accesa.</figcaption></figure>
+    </div>
+  </article>
+</section>
+
+<section id="siti" class="webs" aria-labelledby="h-siti">
+  <div class="chap">
+    <h2 class="dm" id="h-siti" class="rv">Siti web</h2>
+    <p class="rv">Disegnati e scritti a mano, pensati prima per il telefono. Uno è online, tre sono concept per locali di Aversa.</p>
+  </div>
+  <div class="sites">
+    <ol>
+      <li class="site on" data-v="alleria">
+        <button aria-expanded="true">Alleria</button>
+        <div class="more"><div>
+          <p>Il sito dello studio: le tre lampade sono modelli 3D in tempo reale che scorri, fermi e accendi. Un solo file, niente richieste a servizi esterni.</p>
+          <div class="acts"><a class="btn" href="https://alleria.studio" target="_blank" rel="noopener">Apri alleria.studio</a><button class="btn ghost" data-open="alleria">Leggi il progetto</button></div>
+        </div></div>
+      </li>
+      <li class="site" data-v="olive">
+        <button aria-expanded="false">ÓLIVE</button>
+        <div class="more"><div>
+          <p>Oliveria e aperitivo. Solo foto vere del locale e i suoi cartelli dipinti a mano; un'oliva 3D in WebGL cade lungo la pagina mentre scorri.</p>
+          <div class="acts"><button class="btn" data-open="olive">Leggi il progetto</button><a class="btn ghost" href="https://olivedemosito.netlify.app/" target="_blank" rel="noopener">Apri la demo</a></div>
+        </div></div>
+      </li>
+      <li class="site" data-v="berenice">
+        <button aria-expanded="false">Berenice</button>
+        <div class="more"><div>
+          <p>Cocktail bar e pizzeria dal 1994, con un menu dove ogni piatto ha il nome di un film. Il sito diventa un programma di cinema su una pagina sola.</p>
+          <div class="acts"><button class="btn" data-open="berenice">Leggi il progetto</button><a class="btn ghost" href="https://www.behance.net/gallery/258907083" target="_blank" rel="noopener">Su Behance</a></div>
+        </div></div>
+      </li>
+      <li class="site" data-v="core">
+        <button aria-expanded="false">CORE</button>
+        <div class="more"><div>
+          <p>Osteria romana che viveva solo su Instagram. Ora il menu è testo vero, una scheda per portata, e si prenota su WhatsApp.</p>
+          <div class="acts"><button class="btn" data-open="core">Leggi il progetto</button><a class="btn ghost" href="https://www.behance.net/gallery/258907053" target="_blank" rel="noopener">Su Behance</a></div>
+        </div></div>
+      </li>
+    </ol>
+    <figure class="screen rv">
+      <video id="sv" src="vid/alleria.mp4" poster="vid/alleria.jpg" muted loop playsinline autoplay preload="metadata"></video>
+      <figcaption class="cap"><span id="sname">alleria.studio</span><span>Registrazione dello schermo</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="app" class="apps" aria-labelledby="h-app">
+  <div class="chap">
+    <h2 class="dm" id="h-app" class="rv">App</h2>
+    <p class="rv">Dalle interviste al prototipo provato con persone vere: ricerca, architettura, schermate e test.</p>
+  </div>
+  <article class="helys">
+    <div>
+      <h3 class="rv">Helys</h3>
+      <p class="tag rv">Un'app per prendere abbastanza sole senza rischi: legge l'indice UV e conta la vitamina D che produci.</p>
+      <dl class="facts rv">
+        <dt>Per</dt><dd>iOS e watchOS</dd>
+        <dt>Io</dt><dd>Interviste, ideazione, schermate, prototipo, brand</dd>
+      </dl>
+      <div class="sunctl rv">
+        <label for="sun">Prova la sfera <output id="sunv">17%</output></label>
+        <input id="sun" type="range" min="0" max="2" step="1" value="0" aria-valuetext="17% di vitamina D">
+      </div>
+      <div class="acts rv">
+        <button class="btn ghost" data-open="helys">Leggi il progetto</button>
+        <a class="link" href="https://www.behance.net/gallery/186174687" target="_blank" rel="noopener">Su Behance</a>
+      </div>
+    </div>
+    <div class="phone rv"><img id="sunimg" src="img/helys-p17.jpg" alt="Schermata di Helys: la sfera piena al 17% di vitamina D"></div>
+  </article>
+  <article class="bereal">
+    <div class="head">
+      <h3 class="rv">BeReal, ridisegnata</h3>
+      <div>
+        <p class="rv">Un redesign non richiesto: due settimane, sei interviste, una nuova architettura e un test con dodici persone.</p>
+        <div class="acts rv">
+          <button class="btn ghost" data-open="bereal">Leggi il progetto</button>
+          <a class="link" href="https://www.behance.net/gallery/167227077" target="_blank" rel="noopener">Su Behance</a>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <img class="rv" src="img/bereal-feed.jpg" alt="BeReal ridisegnata: il feed" loading="lazy">
+      <img class="rv" src="img/bereal-post.jpg" alt="BeReal ridisegnata: il post" loading="lazy">
+      <img class="rv" src="img/bereal-notif.jpg" alt="BeReal ridisegnata: le notifiche" loading="lazy">
+    </div>
+  </article>
+</section>
+
+<section id="chi" class="about" aria-labelledby="h-chi">
+  <img class="rv" src="img/giovanni.jpg" alt="Giovanni Mandato" loading="lazy">
+  <div>
+    <h2 class="dm" id="h-chi" class="rv">Chi sono</h2>
+    <p class="bio rv">Sono Giovanni, lavoro ad Aversa, vicino Napoli. Progetto oggetti e li porto fino al pezzo che puoi tenere in mano.</p>
+    <p class="rv">A luglio 2026 mi sono laureato in Design per la Comunità alla Federico II. Per la tesi ho progettato una posata con anima in PLA e rivestimento in resina epossidica termoformata, provata con prototipi fisici. Da gennaio 2026 porto avanti Alleria Creative Studio: lampade stampate in 3D, siti, mostre ed eventi.</p>
+    <div class="tools rv"><span>Blender</span><span>Modellazione parametrica</span><span>Stampa 3D</span><span>Figma</span><span>Photoshop</span><span>Illustrator</span><span>InDesign</span><span>Claude Code</span></div>
+    <ul class="svc">
+      <li class="rv"><b>Prodotto e prototipi</b><span>Dall'idea al pezzo stampato, provato in scala reale.</span></li>
+      <li class="rv"><b>Modelli 3D e render</b><span>Modelli puliti, render fotorealistici e brevi animazioni.</span></li>
+      <li class="rv"><b>Siti web</b><span>Per ristoranti, negozi e studi, pensati prima per il telefono.</span></li>
+      <li class="rv"><b>App, UI e UX</b><span>Ricerca, flussi, schermate e prototipo per iOS e watchOS.</span></li>
+    </ul>
+  </div>
+</section>
+
+<footer id="contatti" class="contact dark">
+  <p class="rv">Disponibile per lavoro a tempo pieno e progetti freelance.</p>
+  <a class="mail rv" href="mailto:giovannimandato@icloud.com?subject=Ciao%20Giovanni">giovannimandato@icloud.com</a>
+  <div class="acts rv">
+    <a class="btn" href="mailto:giovannimandato@icloud.com?subject=Ciao%20Giovanni">Scrivimi</a>
+    <a class="btn ghost" href="https://www.behance.net/giovannimandato" target="_blank" rel="noopener">Behance</a>
+    <a class="btn ghost" href="https://www.linkedin.com/in/giovannimandato" target="_blank" rel="noopener">LinkedIn</a>
+    <a class="btn ghost" href="https://alleria.studio" target="_blank" rel="noopener">alleria.studio</a>
+  </div>
+  <p class="big" aria-hidden="true">Mandato</p>
+  <div class="foot"><span>Giovanni Mandato, Aversa (CE)</span><span>Sito disegnato e scritto a mano, 2026</span></div>
+</footer>
+</main>
+
+<dialog id="reader" aria-labelledby="rt">
+  <div class="rbar"><h2 id="rt"></h2><a class="btn ghost" id="rbe" target="_blank" rel="noopener">Su Behance</a><button class="btn" id="rclose">Chiudi</button></div>
+  <div class="rbody"><p id="rd"></p><div id="rimgs"></div><div class="acts"><button class="btn" id="rnext"></button></div></div>
+</dialog>
+
+<script src="3d/three.min.js"></script>
+<script src="3d/GLTFLoader.js"></script>
+<script src="3d/DRACOLoader.js"></script>
+<script>
+// ---- progetti per il lettore
+const P = {
+  creaturelle:{t:'Creaturelle',n:11,b:258907239,d:'Vaso idroponico modulare stampato in 3D in PETG traslucido.'},
+  lampade:{t:'Alleria Lamps',n:13,b:258907263,d:'Tre lampade progettate e stampate in 3D da Alleria: Amelia, Pulcinella e Amelia Science.'},
+  alleria:{t:'Alleria, sito 3D',n:10,b:258907295,d:'Il sito di Alleria Creative Studio, con le lampade in 3D in tempo reale.'},
+  olive:{t:'ÓLIVE',n:12,b:258907061,d:'Concept di sito per un’oliveria con aperitivo ad Aversa.'},
+  berenice:{t:'Berenice',n:10,b:258907083,d:'Concept di sito per un cocktail bar e pizzeria con il Film Menu.'},
+  core:{t:'CORE',n:10,b:258907053,d:'Concept di sito per un’osteria romana ad Aversa.'},
+  helys:{t:'Helys',n:12,b:186174687,d:'App per la vitamina D su iOS e watchOS, dalle interviste al prototipo.'},
+  bereal:{t:'BeReal, redesign',n:12,b:167227077,d:'Redesign UX non richiesto: ricerca, architettura, schermate e test.'}
+};
+const ORDER = Object.keys(P);
+const dlg = document.getElementById('reader');
+function openP(k){
+  const p = P[k], box = document.getElementById('rimgs');
+  document.getElementById('rt').textContent = p.t;
+  document.getElementById('rd').textContent = p.d;
+  document.getElementById('rbe').href = 'https://www.behance.net/gallery/' + p.b;
+  box.innerHTML = '';
+  for (let i = 1; i <= p.n; i++){
+    const im = new Image(); im.loading = i > 2 ? 'lazy' : 'eager'; im.decoding = 'async';
+    im.src = `tav/${k}/${String(i).padStart(2,'0')}.jpg`; im.alt = `${p.t}, tavola ${i} di ${p.n}`;
+    box.append(im);
+  }
+  const nx = ORDER[(ORDER.indexOf(k) + 1) % ORDER.length];
+  const b = document.getElementById('rnext'); b.textContent = 'Prossimo: ' + P[nx].t; b.onclick = () => openP(nx);
+  if (!dlg.open) dlg.showModal();
+  dlg.scrollTop = 0;
+}
+document.addEventListener('click', e => { const b = e.target.closest('[data-open]'); if (b) openP(b.dataset.open); });
+document.getElementById('rclose').onclick = () => dlg.close();
+
+// ---- siti: indice che cambia lo schermo
+const sv = document.getElementById('sv'), sname = document.getElementById('sname');
+const NAMES = {alleria:'alleria.studio',olive:'ÓLIVE, concept',berenice:'Berenice, concept',core:'CORE, concept'};
+document.querySelectorAll('.site').forEach(li => li.querySelector('button').addEventListener('click', () => {
+  document.querySelectorAll('.site').forEach(o => { o.classList.toggle('on', o === li); o.querySelector('button').setAttribute('aria-expanded', o === li); });
+  const v = li.dataset.v; sv.style.opacity = 0;
+  setTimeout(() => { sv.src = `vid/${v}.mp4`; sv.poster = `vid/${v}.jpg`; sv.play().catch(()=>{}); sv.style.opacity = 1; sname.textContent = NAMES[v]; }, 250);
+}));
+
+// ---- Helys: la sfera si riempie
+const SUN = [['p17','17%'],['p71','71%'],['p100','100%']];
+const sun = document.getElementById('sun');
+sun.addEventListener('input', () => {
+  const [f, v] = SUN[sun.value];
+  document.getElementById('sunimg').src = `img/helys-${f}.jpg`;
+  document.getElementById('sunimg').alt = `Schermata di Helys: la sfera piena al ${v} di vitamina D`;
+  document.getElementById('sunv').textContent = v; sun.setAttribute('aria-valuetext', v + ' di vitamina D');
+});
+SUN.forEach(([f]) => { new Image().src = `img/helys-${f}.jpg`; });
+
+// ---- entrate allo scorrimento
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return;
+  const sib = [...e.target.parentElement.children].filter(c => c.classList.contains('rv'));
+  e.target.style.transitionDelay = Math.max(0, sib.indexOf(e.target)) * 80 + 'ms';
+  e.target.classList.add('in'); io.unobserve(e.target);
+}), {rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+// video fermi quando non si vedono
+const vo = new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? e.target.play().catch(()=>{}) : e.target.pause()));
+document.querySelectorAll('video').forEach(v => vo.observe(v));
+
+// ---- hero: la Creaturella si apre al passaggio, parallasse col mouse e lo scroll
+(function(){
+  const hero = document.getElementById('hero'), btn = document.getElementById('ch'), img = document.getElementById('chimg');
+  const N = 24, F = [];
+  for (let i = 0; i < N; i++){ F[i] = new Image(); F[i].src = `img/esploso/${String(i).padStart(2,'0')}.webp`; }
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const touch = matchMedia('(hover: none)').matches;
+  if (touch) document.getElementById('chhint').textContent = 'Toccala: si apre.';
+  let goal = 0, t = 0, shown = 0, mx = 0, my = 0, tx = 0, ty = 0;
+  const set = o => { goal = o ? 1 : 0; btn.classList.toggle('open', o); btn.setAttribute('aria-pressed', o); };
+  if (!touch){ btn.addEventListener('pointerenter', () => set(true)); btn.addEventListener('pointerleave', () => set(false)); }
+  btn.addEventListener('click', () => { if (touch || !goal) set(!goal); });
+  hero.addEventListener('pointermove', e => { const r = hero.getBoundingClientRect(); tx = (e.clientX - r.left) / r.width * 2 - 1; ty = (e.clientY - r.top) / r.height * 2 - 1; });
+  (function loop(){
+    requestAnimationFrame(loop);
+    t += (goal - t) * (still ? 1 : .09);
+    const f = Math.round(t * (N - 1));
+    if (f !== shown && F[f].complete){ img.src = F[f].src; shown = f; }
+    if (still) return;
+    mx += (tx - mx) * .06; my += (ty - my) * .06;
+    const sy = Math.min(1, scrollY / innerHeight);
+    hero.style.setProperty('--mx', mx.toFixed(3)); hero.style.setProperty('--my', my.toFixed(3)); hero.style.setProperty('--sy', sy.toFixed(3));
+  })();
+})();
+
+// ---- la lampada in 3D
+(function(){
+  const cv = document.getElementById('lamp'), stage = document.getElementById('stage');
+  if (!window.THREE) return;
+  let r; try { r = new THREE.WebGLRenderer({canvas:cv, antialias:true, alpha:true}); } catch(e){ return; }
+  r.outputEncoding = THREE.sRGBEncoding; r.setPixelRatio(Math.min(devicePixelRatio, 2));
+  const scene = new THREE.Scene(), cam = new THREE.PerspectiveCamera(30, 1, .1, 100);
+  cam.position.set(0, .5, 4.6); cam.lookAt(0, 0, 0);
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x222226, .9));
+  const key = new THREE.DirectionalLight(0xffffff, 1.1); key.position.set(2, 3, 3); scene.add(key);
+  const bulb = new THREE.PointLight(0xffc98a, 0, 6); scene.add(bulb);
+  const group = new THREE.Group(); scene.add(group);
+  const lin = c => new THREE.Color(c).convertSRGBToLinear();
+  const loader = new THREE.GLTFLoader(), draco = new THREE.DRACOLoader();
+  draco.setDecoderPath('3d/draco/'); loader.setDRACOLoader(draco);
+
+  // materiali come sul sito di Alleria
+  const LAMPS = [
+    {f:'amelia.glb', dress(m){ const acc=[]; m.traverse(n=>{ if(!n.isMesh) return; [].concat(n.material).forEach(x=>{
+        if (x.name==='Printed plastic') x.color.copy(lin(0x2D4E7F));
+        else if (/Material\.00[23]/.test(x.name)){ x.color.copy(lin(0xFFF0E8)); x.side=THREE.DoubleSide; x.emissive=new THREE.Color(0xFFC98A); acc.push(x); }
+      }); if (/^Object_(4|6|8|9|11)$/.test(n.name)) n.visible=false; }); return acc; }},
+    {f:'pulcinella.glb', dress(m){ const acc=[]; m.traverse(n=>{ if(!n.isMesh) return; const d=/diff/i.test(n.name);
+        n.material=new THREE.MeshStandardMaterial({color:lin(d?0xF7F2E4:0x18181b),roughness:d?.9:1,emissive:new THREE.Color(d?0xFFD9A8:0),side:d?THREE.DoubleSide:THREE.FrontSide}); if(d) acc.push(n.material); }); return acc; }},
+    {f:'amelia-science.glb', dress(m){ const acc=[]; m.traverse(n=>{ if(!n.isMesh) return; const d=/diff/i.test(n.name);
+        n.material=new THREE.MeshStandardMaterial({color:lin(d?0xF2EFEA:0x6A3A90),roughness:d?.86:1,emissive:new THREE.Color(d?0xFFFFFF:0),side:d?THREE.DoubleSide:THREE.FrontSide}); if(d) acc.push(n.material); }); return acc; }}
+  ];
+  const cache = [];
+  let cur = null, acc = [], on = false, glow = 0, rotY = .5, vel = 0, drag = null;
+
+  function show(i){
+    const done = o => {
+      if (cur) group.remove(cur.model);
+      cur = o; acc = o.acc; group.add(o.model); stage.classList.add('ready');
+    };
+    if (cache[i]) return done(cache[i]);
+    loader.load('3d/' + LAMPS[i].f, g => {
+      const m = g.scene, acc = LAMPS[i].dress(m);
+      const box = new THREE.Box3().setFromObject(m), s = 1.25 / box.getSize(new THREE.Vector3()).y;
+      m.scale.setScalar(s); box.setFromObject(m); m.position.sub(box.getCenter(new THREE.Vector3()));
+      cache[i] = {model:m, acc}; done(cache[i]);
+    }, undefined, () => {});
+  }
+  show(0);
+
+  document.querySelectorAll('[data-lamp]').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('[data-lamp]').forEach(o => o.setAttribute('aria-pressed', o === b));
+    show(+b.dataset.lamp);
+  }));
+  const lb = document.getElementById('light');
+  lb.addEventListener('click', () => { on = !on; lb.setAttribute('aria-pressed', on); lb.textContent = on ? 'Spegni' : 'Accendi'; });
+
+  cv.addEventListener('pointerdown', e => { drag = e.clientX; vel = 0; cv.setPointerCapture(e.pointerId); });
+  cv.addEventListener('pointermove', e => { if (drag === null) return; vel = (e.clientX - drag) * .01; rotY += vel; drag = e.clientX; });
+  cv.addEventListener('pointerup', () => { drag = null; });
+  cv.addEventListener('pointercancel', () => { drag = null; });
+
+  function size(){ const w = cv.clientWidth, h = cv.clientHeight; r.setSize(w, h, false); cam.aspect = w / h; cam.updateProjectionMatrix(); }
+  new ResizeObserver(size).observe(cv); size();
+
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let visible = true;
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(cv);
+  let last = performance.now();
+  (function loop(t){
+    requestAnimationFrame(loop);
+    const dt = Math.min(.05, (t - last) / 1000); last = t;
+    if (!visible) return;
+    if (drag === null){ vel *= .94; rotY += vel + (still ? 0 : dt * .25); }
+    group.rotation.y = rotY;
+    glow += ((on ? 1.4 : 0) - glow) * Math.min(1, dt * 4);
+    acc.forEach(m => m.emissiveIntensity = glow);
+    bulb.intensity = glow * 1.6;
+    key.intensity = 1.1 - glow * .45;
+    r.render(scene, cam);
+  })(last);
+})();
+</script>
+</body>
+</html>
